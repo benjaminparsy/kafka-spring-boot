@@ -5,7 +5,6 @@ import com.benjamin.parsy.ksb.shared.exception.GlobalException;
 import com.benjamin.parsy.ksb.shared.service.GenericService;
 import com.benjamin.parsy.ksb.shared.service.MessageService;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.lang.NonNull;
 
 import java.util.List;
 import java.util.Optional;
@@ -32,11 +31,7 @@ public abstract class GenericServiceImpl<I> implements GenericService<I> {
         return repository.findById(id);
     }
 
-    public List<I> findAllByIdIn(List<Long> ids) {
-        return repository.findAllById(ids);
-    }
-
-    public I deleteById(@NonNull long id) throws GlobalException {
+    public I deleteById(long id) throws GlobalException {
 
         I item = repository.findById(id).orElseThrow(() ->
                 new GlobalException(messageService.getErrorMessage(ErrorCode.IE1, id)));

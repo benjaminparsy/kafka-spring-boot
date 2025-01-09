@@ -1,0 +1,33 @@
+databaseChangeLog:
+  -  changeSet:
+       id: 020-create-table-user-projection.yaml
+       author: benjamin.parsy
+       changes:
+         -  createTable:
+              schemaName: app
+              tableName: user_projection
+              columns:
+                -  column:
+                     name: id
+                     type: int
+                     autoIncrement: true
+                     constraints:
+                       primaryKey: true
+                       nullable: false
+                - column:
+                    name: name
+                    type: varchar(255)
+                    constraints:
+                      nullable: false
+                - column:
+                    name: email
+                    type: varchar(255)
+                    constraints:
+                      nullable: false
+                      unique: true
+                - column:
+                    name: address
+                    type: varchar(255)
+                - column:
+                    name: phone
+                    type: varchar(20)

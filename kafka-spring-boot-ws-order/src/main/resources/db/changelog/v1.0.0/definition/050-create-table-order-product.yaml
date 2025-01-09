@@ -1,0 +1,40 @@
+databaseChangeLog:
+  -  changeSet:
+       id: 050-create-table-order-product.yaml
+       author: benjamin.parsy
+       changes:
+         -  createTable:
+              schemaName: app
+              tableName: order_product
+              columns:
+                - column:
+                    name: id
+                    type: int
+                    autoIncrement: true
+                    constraints:
+                      primaryKey: true
+                      nullable: false
+                - column:
+                    name: order_id
+                    type: int
+                    constraints:
+                      nullable: false
+                      referencedTableSchemaName: app
+                      referencedTableName: order
+                      referencedColumnNames: id
+                      foreignKeyName: fk_order_order_product
+                      deleteCascade: true
+                - column:
+                    name: product_id
+                    type: int
+                    constraints:
+                      nullable: false
+                      referencedTableSchemaName: app
+                      referencedTableName: stock_projection
+                      referencedColumnNames: id
+                      foreignKeyName: fk_stock_projection_order_product
+                - column:
+                    name: quantity
+                    type: int
+                    constraints:
+                      nullable: false

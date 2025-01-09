@@ -30,9 +30,15 @@
         <mapstruct.version>1.5.5.Final</mapstruct.version>
         <javafaker.version>0.15</javafaker.version>
         <spring.version>3.4.1</spring.version>
+        <springdoc.ui.version>1.7.0</springdoc.ui.version>
+        <jackson-databind-nullable.version>0.2.1</jackson-databind-nullable.version>
+
+        <!-- Plugins version -->
+        <openapi.generator.maven.plugin>7.8.0</openapi.generator.maven.plugin>
 
         <!-- Custom properties -->
         <skip.spring.boot.repackage>false</skip.spring.boot.repackage>
+        <base.package>com.benjamin.parsy.ksb</base.package>
     </properties>
 
     <dependencyManagement>
@@ -101,6 +107,21 @@
                 <artifactId>javafaker</artifactId>
                 <version>${javafaker.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-ui</artifactId>
+                <version>${springdoc.ui.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openapitools</groupId>
+                <artifactId>jackson-databind-nullable</artifactId>
+                <version>${jackson-databind-nullable.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-core</artifactId>
+                <version>${liquibase.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -152,6 +173,16 @@
                 </configuration>
             </plugin>
         </plugins>
+
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.openapitools</groupId>
+                    <artifactId>openapi-generator-maven-plugin</artifactId>
+                    <version>${openapi.generator.maven.plugin}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
 
 </project>

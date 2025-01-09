@@ -1,0 +1,30 @@
+databaseChangeLog:
+  -  changeSet:
+       id: 060-create-table-kafka-event.yaml
+       author: benjamin.parsy
+       changes:
+         -  createTable:
+              schemaName: app
+              tableName: kafka_event
+              columns:
+                - column:
+                    name: id
+                    type: int
+                    autoIncrement: true
+                    constraints:
+                      primaryKey: true
+                - column:
+                    name: event_type
+                    type: enum('UserCreated', 'UserUpdated', 'StockUpdated')
+                    constraints:
+                      nullable: false
+                - column:
+                    name: event_date
+                    type: datetime
+                    constraints:
+                      nullable: false
+                - column:
+                    name: payload
+                    type: json
+                    constraints:
+                      nullable: false

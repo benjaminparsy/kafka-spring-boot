@@ -1,0 +1,30 @@
+databaseChangeLog:
+  -  changeSet:
+       id: 040-create-table-stock-projection.yaml
+       author: benjamin.parsy
+       changes:
+         -  createTable:
+              schemaName: app
+              tableName: stock_projection
+              columns:
+                - column:
+                    name: id
+                    type: int
+                    constraints:
+                      primaryKey: true
+                      nullable: false
+                - column:
+                    name: product_name
+                    type: varchar(255)
+                    constraints:
+                      nullable: false
+                - column:
+                    name: price
+                    type: decimal(10, 2)
+                    constraints:
+                      nullable: false
+                - column:
+                    name: stock_quantity
+                    type: int
+                    constraints:
+                      nullable: false

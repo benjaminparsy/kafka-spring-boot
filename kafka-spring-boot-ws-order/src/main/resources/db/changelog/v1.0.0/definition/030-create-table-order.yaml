@@ -1,0 +1,40 @@
+databaseChangeLog:
+  -  changeSet:
+       id: 030-create-table-order.yaml
+       author: benjamin.parsy
+       changes:
+         -  createTable:
+              schemaName: app
+              tableName: order
+              columns:
+                -  column:
+                     name: id
+                     type: int
+                     autoIncrement: true
+                     constraints:
+                       primaryKey: true
+                       nullable: false
+                - column:
+                    name: user_id
+                    type: int
+                    constraints:
+                      nullable: false
+                      referencedTableSchemaName: app
+                      referencedTableName: user_projection
+                      referencedColumnNames: id
+                      foreignKeyName: fk_user_projection_order
+                - column:
+                    name: order_date
+                    type: datetime
+                    constraints:
+                      nullable: false
+                - column:
+                    name: order_status
+                    type: enum('created', 'processing', 'cancelled', 'shipped')
+                    constraints:
+                      nullable: false
+                - column:
+                    name: order_total
+                    type: decimal(10, 2)
+                    constraints:
+                      nullable: false

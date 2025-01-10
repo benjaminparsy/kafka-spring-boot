@@ -1,11 +1,11 @@
 databaseChangeLog:
   -  changeSet:
-       id: 050-create-table-order-product.yaml
+       id: 050-create-table-order-products.yaml
        author: benjamin.parsy
        changes:
          -  createTable:
               schemaName: app
-              tableName: order_product
+              tableName: order_products
               columns:
                 - column:
                     name: id
@@ -20,9 +20,9 @@ databaseChangeLog:
                     constraints:
                       nullable: false
                       referencedTableSchemaName: app
-                      referencedTableName: order
+                      referencedTableName: orders
                       referencedColumnNames: id
-                      foreignKeyName: fk_order_order_product
+                      foreignKeyName: fk_orders_order_products
                       deleteCascade: true
                 - column:
                     name: product_id
@@ -30,9 +30,9 @@ databaseChangeLog:
                     constraints:
                       nullable: false
                       referencedTableSchemaName: app
-                      referencedTableName: stock_projection
-                      referencedColumnNames: id
-                      foreignKeyName: fk_stock_projection_order_product
+                      referencedTableName: stock_projections
+                      referencedColumnNames: product_id
+                      foreignKeyName: fk_stock_projections_order_products
                 - column:
                     name: quantity
                     type: int

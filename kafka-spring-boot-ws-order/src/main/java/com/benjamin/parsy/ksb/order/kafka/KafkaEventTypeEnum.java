@@ -1,6 +1,6 @@
 package com.benjamin.parsy.ksb.order.kafka;
 
-public enum KafkaEventType {
+public enum KafkaEventTypeEnum {
 
     USER_CREATED,
     USER_UPDATED,

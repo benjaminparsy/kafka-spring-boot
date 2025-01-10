@@ -10,6 +10,8 @@ public enum ErrorCode {
     BR4("error.br.4"),
     BR5("error.br.5"),
     BR8("error.br.8"),
+    INSUFFICIENT_STOCK("error.br.9"),
+    NO_PRODUCTS("error.br.10"),
 
     IE1("error.ie.1"),
     IE2("error.ie.2"),

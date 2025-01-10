@@ -19,18 +19,22 @@ public abstract class GenericServiceImpl<I> implements GenericService<I> {
         this.messageService = messageService;
     }
 
+    @Override
     public I save(I obj) {
         return repository.save(obj);
     }
 
+    @Override
     public List<I> findAll() {
         return repository.findAll();
     }
 
+    @Override
     public Optional<I> findById(Long id) {
         return repository.findById(id);
     }
 
+    @Override
     public I deleteById(long id) throws GlobalException {
 
         I item = repository.findById(id).orElseThrow(() ->

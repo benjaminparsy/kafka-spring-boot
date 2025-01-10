@@ -13,9 +13,12 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Entity(name = "stock_projection")
-@Table(name = "stock_projection")
+@Entity(name = "stock_projections")
+@Table(schema = "app", name = "stock_projections")
 public class StockProjection extends BaseEntity {
+
+    @Column(name = "product_id")
+    private Long productId;
 
     @Column(name = "product_name")
     private String productName;

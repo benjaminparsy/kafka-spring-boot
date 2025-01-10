@@ -1,7 +1,6 @@
 package com.benjamin.parsy.ksb.order.orderproduct;
 
 import com.benjamin.parsy.ksb.order.order.Order;
-import com.benjamin.parsy.ksb.order.stockprojection.StockProjection;
 import com.benjamin.parsy.ksb.shared.jpa.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,8 +15,8 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Entity(name = "order_product")
-@Table(name = "order_product")
+@Entity(name = "order_products")
+@Table(schema = "app", name = "order_products")
 public class OrderProduct extends BaseEntity {
 
     @Column(name = "quantity")
@@ -26,7 +25,7 @@ public class OrderProduct extends BaseEntity {
     @ManyToOne(targetEntity = Order.class)
     private Order order;
 
-    @ManyToOne(targetEntity = StockProjection.class)
-    private StockProjection stockProjection;
+    @Column(name = "product_id")
+    private Long productId;
 
 }

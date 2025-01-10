@@ -1,11 +1,11 @@
 databaseChangeLog:
   -  changeSet:
-       id: 030-create-table-order.yaml
+       id: 030-create-table-orders.yaml
        author: benjamin.parsy
        changes:
          -  createTable:
               schemaName: app
-              tableName: order
+              tableName: orders
               columns:
                 -  column:
                      name: id
@@ -15,14 +15,14 @@ databaseChangeLog:
                        primaryKey: true
                        nullable: false
                 - column:
-                    name: user_id
+                    name: user_projection_id
                     type: int
                     constraints:
                       nullable: false
                       referencedTableSchemaName: app
-                      referencedTableName: user_projection
+                      referencedTableName: user_projections
                       referencedColumnNames: id
-                      foreignKeyName: fk_user_projection_order
+                      foreignKeyName: fk_user_projections_orders
                 - column:
                     name: order_date
                     type: datetime
@@ -30,7 +30,7 @@ databaseChangeLog:
                       nullable: false
                 - column:
                     name: order_status
-                    type: enum('created', 'processing', 'cancelled', 'shipped')
+                    type: enum('CREATED', 'PROCESSING', 'CANCELLED', 'SHIPPED')
                     constraints:
                       nullable: false
                 - column:

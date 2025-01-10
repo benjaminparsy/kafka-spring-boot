@@ -17,6 +17,7 @@ spring:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: none
+
   # H2
   h2:
     console:
@@ -29,3 +30,16 @@ spring:
       group-id: groupId
     producer:
       bootstrap-servers: localhost:29092
+
+# ACTUATOR
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+# SWAGGER UI
+springdoc:
+  swagger-ui:
+    enabled: true
+    path: /

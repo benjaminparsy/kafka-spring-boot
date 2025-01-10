@@ -4,21 +4,21 @@ databaseChangeLog:
       relativeToChangelogFile: true
 
   - include:
-      file: definition/020-create-table-user-projection.yaml
+      file: definition/020-create-table-user-projections.yaml
       relativeToChangelogFile: true
 
   - include:
-      file: definition/030-create-table-order.yaml
+      file: definition/030-create-table-orders.yaml
       relativeToChangelogFile: true
 
   - include:
-      file: definition/040-create-table-stock-projection.yaml
+      file: definition/040-create-table-stock-projections.yaml
       relativeToChangelogFile: true
 
   - include:
-      file: definition/050-create-table-order-product.yaml
+      file: definition/050-create-table-order-products.yaml
       relativeToChangelogFile: true
 
   - include:
-      file: definition/060-create-table-kafka-event.yaml
+      file: definition/060-create-table-kafka-events.yaml
       relativeToChangelogFile: true

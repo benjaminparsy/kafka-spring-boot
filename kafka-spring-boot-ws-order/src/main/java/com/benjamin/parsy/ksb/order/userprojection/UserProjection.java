@@ -13,8 +13,8 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Entity(name = "user_projection")
-@Table(name = "user_projection")
+@Entity(name = "user_projections")
+@Table(schema = "app", name = "user_projections")
 public class UserProjection extends BaseEntity {
 
     @Column(name = "name")

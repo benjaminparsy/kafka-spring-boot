@@ -35,6 +35,10 @@
             <groupId>org.springframework.kafka</groupId>
             <artifactId>spring-kafka</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
 
         <!-- Spring test dependencies -->
         <dependency>
@@ -110,6 +114,7 @@
                                     <generateApiDocumentation>false</generateApiDocumentation>
                                     <generateSupportingFiles>false</generateSupportingFiles>
                                     <skipOperationExample>true</skipOperationExample>
+                                    <schemaMappings>ErrorResponse=${base.package}.shared.handler.ErrorResponse</schemaMappings>
                                     <configOptions>
                                         <useSpringBoot3>true</useSpringBoot3>
                                         <interfaceOnly>true</interfaceOnly>

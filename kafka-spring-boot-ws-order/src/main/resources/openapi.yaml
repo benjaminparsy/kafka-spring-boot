@@ -1,0 +1,134 @@
+openapi: 3.0.1
+
+info:
+  title: KSB Order API
+  description: KSB Order API - API Swagger documentation
+  version: 1.0.0-SNAPSHOT
+
+servers:
+- url: http://localhost:8080
+  description: Localhost server url
+
+tags:
+- name: Order
+  description: Order operations
+
+paths:
+  /orders:
+    post:
+      tags:
+      - Order
+      summary: Create order
+      description: Create a new order
+      operationId: createOrder
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestOrderApiDto'
+      responses:
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOrderApiDto'
+
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Error code
+          example: [BR1]
+        description:
+          type: string
+          description: Error description
+          example: Field 'name' cannot be null
+      description: Response in case of error
+
+    RequestOrderApiDto:
+      required:
+      - userId
+      - products
+      type: object
+      description: Request body for placing an order
+      properties:
+        userId:
+          type: integer
+          description: The ID of the user placing the order.
+          example: 32
+          format: int64
+        products:
+          type: array
+          description: List of products in the order. Each product must specify the product ID and quantity required.
+          items:
+            $ref: '#/components/schemas/ProductApiDto'
+        orderDate:
+          type: string
+          format: date-time
+          description: Order date and time. If not supplied, the current date will be used.
+          example: 2025-01-09T10:30:00Z
+        orderStatus:
+          type: string
+          description: Initial order status. If not supplied, default status is created.
+          example: created
+          enum:
+            - CREATED
+            - PROCESSING
+            - CANCELLED
+            - SHIPPED
+
+    ProductApiDto:
+      type: object
+      description: Represents a product to be purchased
+      required:
+        - productId
+        - quantity
+      properties:
+        productId:
+          type: integer
+          format: int64
+          description: Required product identifier
+          example: 456
+        quantity:
+          type: integer
+          description: Duantity of product required
+          example: 2
+
+    ResponseOrderApiDto:
+      type: object
+      properties:
+        orderId:
+          type: integer
+          description: Order number
+          format: int64
+          example: 1001
+        message:
+          type: string
+          description: Message related to order creation
+          example: Order created successfully
+        status:
+          type: string
+          description: Order status
+          example: created
+        orderTotal:
+          type: number
+          description: Total price of order
+          format: double
+          example: 149.99

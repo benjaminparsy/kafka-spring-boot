@@ -13,8 +13,8 @@ import java.time.OffsetDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Entity(name = "kafka_event")
-@Table(name = "kafka_event")
+@Entity(name = "kafka_events")
+@Table(schema = "app", name = "kafka_events")
 public class KafKaEvent extends BaseEntity {
 
     @Column(name = "event_date")
@@ -22,7 +22,7 @@ public class KafKaEvent extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "event_type")
-    private KafkaEventType eventType;
+    private KafkaEventTypeEnum eventType;
 
     @Column(name = "payload")
     private String payload;

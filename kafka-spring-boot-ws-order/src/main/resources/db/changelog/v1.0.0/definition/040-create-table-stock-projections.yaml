@@ -1,11 +1,11 @@
 databaseChangeLog:
   -  changeSet:
-       id: 060-create-table-kafka-event.yaml
+       id: 040-create-table-stock-projections.yaml
        author: benjamin.parsy
        changes:
          -  createTable:
               schemaName: app
-              tableName: kafka_event
+              tableName: stock_projections
               columns:
                 - column:
                     name: id
@@ -13,18 +13,25 @@ databaseChangeLog:
                     autoIncrement: true
                     constraints:
                       primaryKey: true
+                      nullable: false
                 - column:
-                    name: event_type
-                    type: enum('UserCreated', 'UserUpdated', 'StockUpdated')
+                    name: product_id
+                    type: int
+                    constraints:
+                      nullable: false
+                      unique: true
+                - column:
+                    name: product_name
+                    type: varchar(255)
                     constraints:
                       nullable: false
                 - column:
-                    name: event_date
-                    type: datetime
+                    name: price
+                    type: decimal(10, 2)
                     constraints:
                       nullable: false
                 - column:
-                    name: payload
-                    type: json
+                    name: stock_quantity
+                    type: int
                     constraints:
                       nullable: false

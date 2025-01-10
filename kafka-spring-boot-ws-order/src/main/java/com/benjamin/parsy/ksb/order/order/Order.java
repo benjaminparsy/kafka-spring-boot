@@ -14,8 +14,8 @@ import java.time.OffsetDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Entity(name = "order")
-@Table(name = "order")
+@Entity(name = "orders")
+@Table(schema = "app", name = "orders")
 public class Order extends BaseEntity {
 
     @Column(name = "order_date")
@@ -23,7 +23,7 @@ public class Order extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "order_status")
-    private OrderStatus orderStatus;
+    private OrderStatusEnum orderStatusEnum;
 
     @Column(name = "order_total")
     private int orderTotal;

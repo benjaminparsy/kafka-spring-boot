@@ -15,7 +15,7 @@ databaseChangeLog:
                       primaryKey: true
                 - column:
                     name: event_type
-                    type: enum('USER_CREATED', 'USER_UPDATED', 'STOCK_UPDATED')
+                    type: varchar(255)
                     constraints:
                       nullable: false
                 - column:

@@ -12,6 +12,7 @@ public enum ErrorCode {
     BR8("error.br.8"),
     INSUFFICIENT_STOCK("error.br.9"),
     NO_PRODUCTS("error.br.10"),
+    KAFKA_MESSAGE_CANNOT_BE_CREATED("error.br.11"),
 
     IE1("error.ie.1"),
     IE2("error.ie.2"),

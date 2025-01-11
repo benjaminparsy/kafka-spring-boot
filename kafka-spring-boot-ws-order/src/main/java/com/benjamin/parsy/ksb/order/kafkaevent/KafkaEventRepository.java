@@ -1,4 +1,4 @@
-package com.benjamin.parsy.ksb.order.kafka;
+package com.benjamin.parsy.ksb.order.kafkaevent;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

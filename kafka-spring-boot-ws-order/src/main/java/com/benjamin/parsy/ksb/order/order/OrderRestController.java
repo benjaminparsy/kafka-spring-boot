@@ -2,20 +2,25 @@ package com.benjamin.parsy.ksb.order.order;
 
 import com.benjamin.parsy.ksb.order.api.OrdersApi;
 import com.benjamin.parsy.ksb.order.exception.StockException;
+import com.benjamin.parsy.ksb.order.kafka.KafkaConstant;
 import com.benjamin.parsy.ksb.order.model.ProductApiDto;
 import com.benjamin.parsy.ksb.order.model.RequestOrderApiDto;
 import com.benjamin.parsy.ksb.order.model.ResponseOrderApiDto;
+import com.benjamin.parsy.ksb.order.order.kafka.KafkaProducerOrderService;
+import com.benjamin.parsy.ksb.order.orderproduct.OrderProduct;
 import com.benjamin.parsy.ksb.order.orderproduct.OrderProductService;
 import com.benjamin.parsy.ksb.order.stockprojection.StockProjectionService;
 import com.benjamin.parsy.ksb.order.userprojection.UserProjection;
 import com.benjamin.parsy.ksb.order.userprojection.UserProjectionService;
 import com.benjamin.parsy.ksb.shared.exception.ErrorCode;
+import com.benjamin.parsy.ksb.shared.exception.GlobalException;
 import com.benjamin.parsy.ksb.shared.exception.RestException;
 import com.benjamin.parsy.ksb.shared.service.MessageService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -27,17 +32,19 @@ public class OrderRestController implements OrdersApi {
     private final StockProjectionService stockProjectionService;
     private final OrderService orderService;
     private final OrderProductService orderProductService;
+    private final KafkaProducerOrderService kafkaProducerOrderService;
 
     public OrderRestController(UserProjectionService userProjectionService,
                                MessageService messageService,
                                StockProjectionService stockProjectionService,
                                OrderService orderService,
-                               OrderProductService orderProductService) {
+                               OrderProductService orderProductService, KafkaProducerOrderService kafkaProducerOrderService) {
         this.userProjectionService = userProjectionService;
         this.messageService = messageService;
         this.stockProjectionService = stockProjectionService;
         this.orderService = orderService;
         this.orderProductService = orderProductService;
+        this.kafkaProducerOrderService = kafkaProducerOrderService;
     }
 
     @Override
@@ -61,7 +68,13 @@ public class OrderRestController implements OrdersApi {
         Order order = orderService.createOrder(requestBody.getOrderDate(), String.valueOf(requestBody.getOrderStatus()),
                 userProjection, totalPrice);
 
-        orderProductService.createOrderProductList(quantityByProductId, order);
+        List<OrderProduct> orderProductList = orderProductService.createOrderProductList(quantityByProductId, order);
+
+        try {
+            kafkaProducerOrderService.send(KafkaConstant.TOPIC_ORDER_CREATED, orderProductList);
+        } catch (GlobalException e) {
+            throw new RestException(e.getErrorMessage());
+        }
 
         return ResponseEntity.ok(createResponse(order));
     }

@@ -1,7 +1,9 @@
-package com.benjamin.parsy.ksb.order.kafka;
+package com.benjamin.parsy.ksb.order.kafkaevent;
 
 import com.benjamin.parsy.ksb.shared.jpa.BaseEntity;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.*;
 
 import java.time.OffsetDateTime;
@@ -20,9 +22,8 @@ public class KafKaEvent extends BaseEntity {
     @Column(name = "event_date")
     private OffsetDateTime eventDate;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "event_type")
-    private KafkaEventTypeEnum eventType;
+    private String eventType;
 
     @Column(name = "payload")
     private String payload;

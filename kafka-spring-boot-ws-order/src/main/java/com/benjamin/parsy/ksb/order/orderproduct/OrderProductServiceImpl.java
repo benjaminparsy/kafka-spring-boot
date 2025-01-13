@@ -1,8 +1,7 @@
 package com.benjamin.parsy.ksb.order.orderproduct;
 
 import com.benjamin.parsy.ksb.order.order.Order;
-import com.benjamin.parsy.ksb.shared.service.MessageService;
-import com.benjamin.parsy.ksb.shared.service.impl.GenericServiceImpl;
+import com.benjamin.parsy.ksb.shared.service.jpa.GenericServiceImpl;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,8 +12,8 @@ public class OrderProductServiceImpl extends GenericServiceImpl<OrderProduct> im
 
     private final OrderProductRepository repository;
 
-    public OrderProductServiceImpl(OrderProductRepository repository, MessageService messageService) {
-        super(repository, messageService);
+    public OrderProductServiceImpl(OrderProductRepository repository) {
+        super(repository);
         this.repository = repository;
     }
 

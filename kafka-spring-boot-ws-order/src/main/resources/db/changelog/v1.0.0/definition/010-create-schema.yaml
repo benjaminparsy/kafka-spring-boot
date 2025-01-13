@@ -5,4 +5,4 @@ databaseChangeLog:
        changes:
          - sql:
              endDelimiter: ;
-             sql: "CREATE SCHEMA app;"
+             sql: "CREATE SCHEMA app; CREATE SCHEMA events;"

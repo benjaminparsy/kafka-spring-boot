@@ -4,7 +4,7 @@ databaseChangeLog:
        author: benjamin.parsy
        changes:
          -  createTable:
-              schemaName: app
+              schemaName: events
               tableName: kafka_events
               columns:
                 - column:

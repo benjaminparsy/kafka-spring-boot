@@ -1,7 +1,7 @@
 package com.benjamin.parsy.ksb.order.orderproduct;
 
 import com.benjamin.parsy.ksb.order.order.Order;
-import com.benjamin.parsy.ksb.shared.service.GenericService;
+import com.benjamin.parsy.ksb.shared.service.jpa.GenericService;
 
 import java.util.List;
 import java.util.Map;

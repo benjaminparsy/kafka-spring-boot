@@ -1,6 +1,6 @@
 package com.benjamin.parsy.ksb.order.stockprojection.kafka;
 
-import com.benjamin.parsy.ksb.order.kafka.KafkaConstant;
+import com.benjamin.parsy.ksb.order.shared.KafkaConstant;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;

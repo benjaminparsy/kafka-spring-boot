@@ -1,4 +1,4 @@
-package com.benjamin.parsy.ksb.shared.exception;
+package com.benjamin.parsy.ksb.shared.service.message;
 
 import lombok.Getter;
 

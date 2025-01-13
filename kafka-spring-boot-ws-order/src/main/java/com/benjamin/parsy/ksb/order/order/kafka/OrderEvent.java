@@ -1,12 +1,16 @@
 package com.benjamin.parsy.ksb.order.order.kafka;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 import java.time.OffsetDateTime;
 import java.util.List;
 
 @Data
+@AllArgsConstructor
+@Builder
 public class OrderEvent {
 
     @JsonProperty("orderId")

@@ -1,8 +1,7 @@
-package com.benjamin.parsy.ksb.order.kafkaevent;
+package com.benjamin.parsy.ksb.shared.kafka;
 
-import com.benjamin.parsy.ksb.shared.service.JsonHelper;
-import com.benjamin.parsy.ksb.shared.service.MessageService;
-import com.benjamin.parsy.ksb.shared.service.impl.GenericServiceImpl;
+import com.benjamin.parsy.ksb.shared.helper.JsonHelper;
+import com.benjamin.parsy.ksb.shared.service.jpa.GenericServiceImpl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.stereotype.Service;
 
@@ -13,8 +12,8 @@ public class KafkaEventServiceImpl extends GenericServiceImpl<KafKaEvent> implem
 
     private final KafkaEventRepository repository;
 
-    public KafkaEventServiceImpl(KafkaEventRepository repository, MessageService messageService) {
-        super(repository, messageService);
+    public KafkaEventServiceImpl(KafkaEventRepository repository) {
+        super(repository);
         this.repository = repository;
     }
 

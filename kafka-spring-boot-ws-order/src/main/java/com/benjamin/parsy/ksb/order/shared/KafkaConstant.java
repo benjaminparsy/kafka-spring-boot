@@ -1,4 +1,4 @@
-package com.benjamin.parsy.ksb.order.kafka;
+package com.benjamin.parsy.ksb.order.shared;
 
 public final class KafkaConstant {
 

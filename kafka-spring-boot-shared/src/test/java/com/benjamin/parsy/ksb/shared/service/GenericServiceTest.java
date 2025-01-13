@@ -1,7 +1,8 @@
 package com.benjamin.parsy.ksb.shared.service;
 
 import com.benjamin.parsy.ksb.shared.AbstractTest;
-import com.benjamin.parsy.ksb.shared.exception.GlobalException;
+import com.benjamin.parsy.ksb.shared.exception.ResourceNotFoundException;
+import com.benjamin.parsy.ksb.shared.service.jpa.GenericService;
 import com.benjamin.parsy.ksb.shared.testclass.Entity;
 import com.benjamin.parsy.ksb.shared.testclass.SubEntity;
 import org.junit.jupiter.api.Test;
@@ -111,11 +112,11 @@ class GenericServiceTest extends AbstractTest {
         long idUnknown = lastId + 1;
 
         // When
-        GlobalException exception = assertThrows(GlobalException.class,
+        ResourceNotFoundException exception = assertThrows(ResourceNotFoundException.class,
                 () -> genericService.deleteById(idUnknown));
 
         // Then
-        String msg = String.format("[IE1] Item with id %s cannot be found in database", idUnknown);
+        String msg = String.format("Item with id '%s' cannot be found in database.", idUnknown);
         assertEquals(msg, exception.getMessage());
 
     }

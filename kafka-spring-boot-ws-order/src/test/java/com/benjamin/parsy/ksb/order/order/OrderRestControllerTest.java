@@ -6,7 +6,7 @@ import com.benjamin.parsy.ksb.order.model.ResponseOrderApiDto;
 import com.benjamin.parsy.ksb.order.stockprojection.StockProjectionService;
 import com.benjamin.parsy.ksb.order.userprojection.UserProjection;
 import com.benjamin.parsy.ksb.order.userprojection.UserProjectionRepository;
-import com.benjamin.parsy.ksb.shared.service.JsonHelper;
+import com.benjamin.parsy.ksb.shared.helper.JsonHelper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;

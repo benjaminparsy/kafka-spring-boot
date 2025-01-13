@@ -1,7 +1,7 @@
 package com.benjamin.parsy.ksb.order.order;
 
 import com.benjamin.parsy.ksb.order.userprojection.UserProjection;
-import com.benjamin.parsy.ksb.shared.service.GenericService;
+import com.benjamin.parsy.ksb.shared.service.jpa.GenericService;
 
 import java.time.OffsetDateTime;
 

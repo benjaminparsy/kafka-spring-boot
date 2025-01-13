@@ -1,4 +1,4 @@
-package com.benjamin.parsy.ksb.order.kafkaevent;
+package com.benjamin.parsy.ksb.shared.kafka;
 
 import com.benjamin.parsy.ksb.shared.jpa.BaseEntity;
 import jakarta.persistence.Column;
@@ -16,7 +16,7 @@ import java.time.OffsetDateTime;
 @AllArgsConstructor
 @Builder
 @Entity(name = "kafka_events")
-@Table(schema = "app", name = "kafka_events")
+@Table(schema = "events", name = "kafka_events")
 public class KafKaEvent extends BaseEntity {
 
     @Column(name = "event_date")

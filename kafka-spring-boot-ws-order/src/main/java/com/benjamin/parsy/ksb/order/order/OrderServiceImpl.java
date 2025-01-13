@@ -1,8 +1,7 @@
 package com.benjamin.parsy.ksb.order.order;
 
 import com.benjamin.parsy.ksb.order.userprojection.UserProjection;
-import com.benjamin.parsy.ksb.shared.service.MessageService;
-import com.benjamin.parsy.ksb.shared.service.impl.GenericServiceImpl;
+import com.benjamin.parsy.ksb.shared.service.jpa.GenericServiceImpl;
 import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
@@ -12,8 +11,8 @@ public class OrderServiceImpl extends GenericServiceImpl<Order> implements Order
 
     private final OrderRepository repository;
 
-    public OrderServiceImpl(OrderRepository repository, MessageService messageService) {
-        super(repository, messageService);
+    public OrderServiceImpl(OrderRepository repository) {
+        super(repository);
         this.repository = repository;
     }
 

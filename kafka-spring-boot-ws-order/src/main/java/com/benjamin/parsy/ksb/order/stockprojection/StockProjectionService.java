@@ -1,7 +1,7 @@
 package com.benjamin.parsy.ksb.order.stockprojection;
 
-import com.benjamin.parsy.ksb.order.exception.StockException;
-import com.benjamin.parsy.ksb.shared.service.GenericService;
+import com.benjamin.parsy.ksb.order.shared.exception.StockException;
+import com.benjamin.parsy.ksb.shared.service.jpa.GenericService;
 import org.springframework.lang.NonNull;
 
 import java.util.Map;

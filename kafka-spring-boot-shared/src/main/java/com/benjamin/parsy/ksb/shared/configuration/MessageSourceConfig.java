@@ -12,7 +12,10 @@ import java.nio.charset.StandardCharsets;
 @Slf4j
 public class MessageSourceConfig {
 
-    private static final String[] MESSAGES_BASENAMES = {"classpath:messages/error"};
+    private static final String[] MESSAGES_BASENAMES = {
+            "classpath:global_messages",
+            "classpath:messages"
+    };
 
     @Bean
     public MessageSource messageSource() {

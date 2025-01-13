@@ -1,4 +1,4 @@
-package com.benjamin.parsy.ksb.shared.service;
+package com.benjamin.parsy.ksb.shared.helper;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

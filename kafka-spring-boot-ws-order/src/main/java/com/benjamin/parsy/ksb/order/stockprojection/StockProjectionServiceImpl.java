@@ -1,10 +1,10 @@
 package com.benjamin.parsy.ksb.order.stockprojection;
 
-import com.benjamin.parsy.ksb.order.exception.StockException;
-import com.benjamin.parsy.ksb.shared.exception.ErrorCode;
-import com.benjamin.parsy.ksb.shared.exception.ErrorMessage;
-import com.benjamin.parsy.ksb.shared.service.MessageService;
-import com.benjamin.parsy.ksb.shared.service.impl.GenericServiceImpl;
+import com.benjamin.parsy.ksb.order.shared.OrderErrorCode;
+import com.benjamin.parsy.ksb.order.shared.exception.StockException;
+import com.benjamin.parsy.ksb.shared.service.jpa.GenericServiceImpl;
+import com.benjamin.parsy.ksb.shared.service.message.ErrorMessage;
+import com.benjamin.parsy.ksb.shared.service.message.MessageService;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
@@ -18,11 +18,10 @@ public class StockProjectionServiceImpl extends GenericServiceImpl<StockProjecti
     private final MessageService messageService;
 
     public StockProjectionServiceImpl(StockProjectionRepository repository,
-                                      MessageService messageService,
-                                      MessageService messageService1) {
-        super(repository, messageService);
+                                      MessageService messageService) {
+        super(repository);
         this.repository = repository;
-        this.messageService = messageService1;
+        this.messageService = messageService;
     }
 
     @Override
@@ -31,7 +30,7 @@ public class StockProjectionServiceImpl extends GenericServiceImpl<StockProjecti
         List<StockProjection> stockProjectionList = repository.findAllByProductIdIn(quantityByProductId.keySet());
 
         if (stockProjectionList.isEmpty()) {
-            ErrorMessage errorMessage = messageService.getErrorMessage(ErrorCode.NO_PRODUCTS);
+            ErrorMessage errorMessage = messageService.getErrorMessage(OrderErrorCode.PRODUCTS_NOT_EXISTS);
             throw new StockException(errorMessage);
         }
 
@@ -40,7 +39,7 @@ public class StockProjectionServiceImpl extends GenericServiceImpl<StockProjecti
             int quantityRequired = quantityByProductId.get(stockProjection.getProductId());
 
             if (stockProjection.getStockQuantity() < quantityRequired) {
-                ErrorMessage errorMessage = messageService.getErrorMessage(ErrorCode.INSUFFICIENT_STOCK, stockProjection.getProductName());
+                ErrorMessage errorMessage = messageService.getErrorMessage(OrderErrorCode.INSUFFICIENT_STOCK, stockProjection.getProductName());
                 throw new StockException(errorMessage);
             }
 

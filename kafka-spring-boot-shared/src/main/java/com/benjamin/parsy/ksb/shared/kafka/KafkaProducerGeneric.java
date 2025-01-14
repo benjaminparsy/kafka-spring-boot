@@ -20,11 +20,6 @@ public abstract class KafkaProducerGeneric<I, O> {
         O kafkaObject = toKafkaObject(entity);
 
         kafkaEventService.save(topic, kafkaObject);
-
-        if (true) {
-            throw new RuntimeException("boom");
-        }
-
         kafkaTemplate.send(topic, kafkaObject);
 
     }

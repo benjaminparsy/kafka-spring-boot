@@ -8,6 +8,11 @@ import java.util.Map;
 
 public interface OrderProductService extends GenericService<OrderProduct> {
 
+    /**
+     * @param quantityByProductId Map of desired quantities by desired products
+     * @param order               Order for which to create OrderProduct
+     * @return List of OrderProduct recorded in the database
+     */
     List<OrderProduct> createOrderProductList(Map<Long, Integer> quantityByProductId, Order order);
 
 }

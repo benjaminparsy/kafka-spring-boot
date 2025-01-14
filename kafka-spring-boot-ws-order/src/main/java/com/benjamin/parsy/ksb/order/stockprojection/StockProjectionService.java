@@ -9,18 +9,21 @@ import java.util.Map;
 public interface StockProjectionService extends GenericService<StockProjection> {
 
     /**
+     * Calculate the total price of an order
+     *
+     * @param quantityByProductId Map of desired quantities by desired products
+     * @return Total price of order
+     * @throws StockException Exception throw if there is an inconsistency between desired and existing products
+     */
+    int getTotalPrice(@NonNull Map<Long, Integer> quantityByProductId) throws StockException;
+
+    /**
      * Allows you to check whether you have enough stock of the products you want.
      * An exception is raised if there is insufficient stock of a product.
      *
      * @param quantityByProductId Map of desired quantities by desired products
      * @throws StockException Exception throw if there is insufficient stock of a desired product
      */
-    void checkQuantity(@NonNull Map<Long, Integer> quantityByProductId) throws StockException;
+    void checkQuantity(Map<Long, Integer> quantityByProductId) throws StockException;
 
-    /**
-     * Allows you to calculate the total price of the products you want, taking quantity into account.
-     * @param quantityByProductId Map of desired quantities by desired products
-     * @return Total price of products desired
-     */
-    int getTotalPrice(@NonNull Map<Long, Integer> quantityByProductId);
 }

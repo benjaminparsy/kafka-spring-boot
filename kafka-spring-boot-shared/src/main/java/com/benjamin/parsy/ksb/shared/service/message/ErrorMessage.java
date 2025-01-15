@@ -8,13 +8,13 @@ public class ErrorMessage {
     private static final String SPACE = " ";
 
     private final String code;
-    private final String description;
+    private final String message;
     private final String formattedMessage;
 
-    public ErrorMessage(String code, String description) {
+    public ErrorMessage(String code, String message) {
         this.code = code;
-        this.description = description;
-        this.formattedMessage = code.concat(SPACE).concat(description);
+        this.message = message;
+        this.formattedMessage = code.concat(SPACE).concat(message);
     }
 
 }

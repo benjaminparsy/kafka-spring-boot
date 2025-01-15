@@ -69,7 +69,7 @@ public class StockProjectionServiceImpl extends GenericServiceImpl<StockProjecti
                 .collect(Collectors.toSet());
 
         if (!missingProductIds.isEmpty()) {
-            ErrorMessage errorMessage = messageService.getErrorMessage(OrderErrorCode.PRODUCTS_NOT_EXISTS, missingProductIds);
+            ErrorMessage errorMessage = messageService.getErrorMessage(OrderErrorCode.PRODUCTS_NOT_EXISTS.getCode(), missingProductIds);
             throw new StockException(errorMessage);
         }
 
@@ -87,7 +87,7 @@ public class StockProjectionServiceImpl extends GenericServiceImpl<StockProjecti
         int requiredQuantity = quantityByProductId.get(stockProjection.getProductId());
 
         if (stockProjection.getStockQuantity() < requiredQuantity) {
-            ErrorMessage errorMessage = messageService.getErrorMessage(OrderErrorCode.INSUFFICIENT_STOCK, stockProjection.getProductName());
+            ErrorMessage errorMessage = messageService.getErrorMessage(OrderErrorCode.INSUFFICIENT_STOCK.getCode(), stockProjection.getProductName());
             throw new StockException(errorMessage);
         }
 

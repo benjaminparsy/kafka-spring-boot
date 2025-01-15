@@ -1,6 +1,6 @@
 package com.benjamin.parsy.ksb.shared.kafka;
 
-import com.benjamin.parsy.ksb.shared.exception.AbstractMessageException;
+import com.benjamin.parsy.ksb.shared.exception.BusinessException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -13,7 +13,7 @@ public abstract class KafkaProducerGeneric<I, O> {
     private final KafkaEventService kafkaEventService;
 
     @Transactional
-    public void send(String topic, I entity) throws AbstractMessageException, JsonProcessingException {
+    public void send(String topic, I entity) throws BusinessException, JsonProcessingException {
 
         validateEntity(entity);
 
@@ -27,7 +27,7 @@ public abstract class KafkaProducerGeneric<I, O> {
     /**
      * Validates OrderProduct list before processing.
      */
-    protected abstract void validateEntity(I orderProductList) throws AbstractMessageException;
+    protected abstract void validateEntity(I orderProductList) throws BusinessException;
 
     protected abstract O toKafkaObject(I entity);
 

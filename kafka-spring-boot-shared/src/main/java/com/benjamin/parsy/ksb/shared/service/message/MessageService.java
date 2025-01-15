@@ -5,6 +5,6 @@ import org.springframework.lang.NonNull;
 public interface MessageService {
 
     @NonNull
-    ErrorMessage getErrorMessage(ErrorCodeOperation errorCodeOperation, Object... args);
+    ErrorMessage getErrorMessage(String code, Object... args);
 
 }

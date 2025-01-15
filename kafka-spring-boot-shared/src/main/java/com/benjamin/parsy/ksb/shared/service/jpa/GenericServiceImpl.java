@@ -1,6 +1,5 @@
 package com.benjamin.parsy.ksb.shared.service.jpa;
 
-import com.benjamin.parsy.ksb.shared.exception.ResourceNotFoundException;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,20 +28,19 @@ public abstract class GenericServiceImpl<I> implements GenericService<I> {
 
     @Transactional(readOnly = true)
     @Override
-    public Optional<I> findById(Long id) {
+    public Optional<I> findById(long id) {
         return repository.findById(id);
     }
 
-    @Transactional
     @Override
-    public I deleteById(long id) throws ResourceNotFoundException {
+    public boolean deleteById(long id) {
 
-        I item = repository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException(String.valueOf(id)));
+        if (repository.findById(id).isEmpty()) {
+            return false;
+        }
 
         repository.deleteById(id);
-
-        return item;
+        return repository.findById(id).isEmpty();
     }
 
 }

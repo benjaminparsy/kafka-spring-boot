@@ -4,8 +4,8 @@ import com.benjamin.parsy.ksb.order.order.Order;
 import com.benjamin.parsy.ksb.order.orderproduct.OrderProduct;
 import com.benjamin.parsy.ksb.order.shared.OrderErrorCode;
 import com.benjamin.parsy.ksb.order.shared.exception.EmptyOrderProductListException;
-import com.benjamin.parsy.ksb.order.shared.exception.InvalidOrderException;
-import com.benjamin.parsy.ksb.shared.exception.AbstractMessageException;
+import com.benjamin.parsy.ksb.order.shared.exception.InvalidOrderProductListException;
+import com.benjamin.parsy.ksb.shared.exception.BusinessException;
 import com.benjamin.parsy.ksb.shared.kafka.KafkaEventService;
 import com.benjamin.parsy.ksb.shared.kafka.KafkaProducerGeneric;
 import com.benjamin.parsy.ksb.shared.service.message.MessageService;
@@ -31,11 +31,11 @@ public class KafkaProducerOrderService extends KafkaProducerGeneric<List<OrderPr
      * Validates OrderProduct list before processing.
      */
     @Override
-    protected void validateEntity(List<OrderProduct> orderProductList) throws AbstractMessageException {
+    protected void validateEntity(List<OrderProduct> orderProductList) throws BusinessException {
 
         if (CollectionUtils.isEmpty(orderProductList)) {
             throw new EmptyOrderProductListException(
-                    messageService.getErrorMessage(OrderErrorCode.KAFKA_MESSAGE_CANNOT_BE_CREATED)
+                    messageService.getErrorMessage(OrderErrorCode.KAFKA_MESSAGE_CANNOT_BE_CREATED.getCode())
             );
         }
 
@@ -45,8 +45,8 @@ public class KafkaProducerOrderService extends KafkaProducerGeneric<List<OrderPr
                 .anyMatch(o -> !o.getOrder().equals(order));
 
         if (hasInconsistentOrders) {
-            throw new InvalidOrderException(
-                    messageService.getErrorMessage(OrderErrorCode.KAFKA_MESSAGE_CANNOT_BE_CREATED)
+            throw new InvalidOrderProductListException(
+                    messageService.getErrorMessage(OrderErrorCode.KAFKA_MESSAGE_CANNOT_BE_CREATED.getCode())
             );
         }
 

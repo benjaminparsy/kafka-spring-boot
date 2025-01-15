@@ -10,7 +10,8 @@ import com.benjamin.parsy.ksb.order.orderproduct.OrderProductService;
 import com.benjamin.parsy.ksb.order.shared.KafkaConstant;
 import com.benjamin.parsy.ksb.order.shared.OrderErrorCode;
 import com.benjamin.parsy.ksb.order.shared.exception.StockException;
-import com.benjamin.parsy.ksb.shared.exception.AbstractMessageException;
+import com.benjamin.parsy.ksb.order.shared.exception.UserProjectionNotFoundException;
+import com.benjamin.parsy.ksb.shared.exception.BusinessException;
 import com.benjamin.parsy.ksb.shared.exception.RestException;
 import com.benjamin.parsy.ksb.shared.service.message.MessageService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -43,7 +44,7 @@ public class OrderRestController implements OrdersApi {
         try {
             order = orderService.createOrder(requestBody.getOrderDate(), String.valueOf(requestBody.getOrderStatus()),
                     requestBody.getUserId(), quantityByProductId);
-        } catch (StockException e) {
+        } catch (StockException | UserProjectionNotFoundException e) {
             throw new RestException(e.getErrorMessage());
         }
 
@@ -51,10 +52,10 @@ public class OrderRestController implements OrdersApi {
 
         try {
             kafkaProducerOrderService.send(KafkaConstant.TOPIC_ORDER_CREATED, orderProductList);
-        } catch (AbstractMessageException e) {
+        } catch (BusinessException e) {
             throw new RestException(e.getErrorMessage());
         } catch (JsonProcessingException e) {
-            throw new RestException(messageService.getErrorMessage(OrderErrorCode.CANNOT_JSONIFY_OBJECT));
+            throw new RestException(messageService.getErrorMessage(OrderErrorCode.CANNOT_JSONIFY_OBJECT.getCode()));
         }
 
         return ResponseEntity.ok(createResponse(order));

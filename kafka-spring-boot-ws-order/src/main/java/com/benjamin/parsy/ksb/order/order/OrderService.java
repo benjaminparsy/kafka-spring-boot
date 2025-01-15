@@ -1,6 +1,7 @@
 package com.benjamin.parsy.ksb.order.order;
 
 import com.benjamin.parsy.ksb.order.shared.exception.StockException;
+import com.benjamin.parsy.ksb.order.shared.exception.UserProjectionNotFoundException;
 import com.benjamin.parsy.ksb.shared.service.jpa.GenericService;
 
 import java.time.OffsetDateTime;
@@ -16,6 +17,6 @@ public interface OrderService extends GenericService<Order> {
      * @return Order recorded in the database
      */
     Order createOrder(OffsetDateTime orderDate, String orderStatus, Long userProjectionId,
-                      Map<Long, Integer> quantityByProductId) throws StockException;
+                      Map<Long, Integer> quantityByProductId) throws StockException, UserProjectionNotFoundException;
 
 }

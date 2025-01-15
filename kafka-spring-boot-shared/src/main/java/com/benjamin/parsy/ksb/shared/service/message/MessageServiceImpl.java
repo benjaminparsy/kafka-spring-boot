@@ -15,16 +15,9 @@ public class MessageServiceImpl implements MessageService {
 
     @NonNull
     @Override
-    public ErrorMessage getErrorMessage(ErrorCodeOperation errorCodeOperation, Object[] args) {
-
-        String code = getLocalizedMessage(errorCodeOperation.getCodeKey());
-        String description = getLocalizedMessage(errorCodeOperation.getDescriptionKey(), args);
-
-        return new ErrorMessage(code, description);
-    }
-
-    private String getLocalizedMessage(String key, Object... args) {
-        return messageSource.getMessage(key, args, Locale.getDefault());
+    public ErrorMessage getErrorMessage(String key, Object[] args) {
+        String message = messageSource.getMessage(key, args, Locale.getDefault());
+        return new ErrorMessage(key, message);
     }
 
 }

@@ -2,10 +2,10 @@ package com.benjamin.parsy.ksb.order.order;
 
 import com.benjamin.parsy.ksb.order.shared.OrderErrorCode;
 import com.benjamin.parsy.ksb.order.shared.exception.StockException;
+import com.benjamin.parsy.ksb.order.shared.exception.UserProjectionNotFoundException;
 import com.benjamin.parsy.ksb.order.stockprojection.StockProjectionService;
 import com.benjamin.parsy.ksb.order.userprojection.UserProjection;
 import com.benjamin.parsy.ksb.order.userprojection.UserProjectionService;
-import com.benjamin.parsy.ksb.shared.exception.RestException;
 import com.benjamin.parsy.ksb.shared.service.jpa.GenericServiceImpl;
 import com.benjamin.parsy.ksb.shared.service.message.MessageService;
 import org.springframework.stereotype.Service;
@@ -32,11 +32,11 @@ public class OrderServiceImpl extends GenericServiceImpl<Order> implements Order
     }
 
     @Override
-    public Order createOrder(OffsetDateTime orderDate, String orderStatus, Long userProjectionId, Map<Long, Integer> quantityByProductId) throws StockException {
+    public Order createOrder(OffsetDateTime orderDate, String orderStatus, Long userProjectionId, Map<Long, Integer> quantityByProductId) throws StockException, UserProjectionNotFoundException {
 
         UserProjection userProjection = userProjectionService.findById(userProjectionId)
-                .orElseThrow(() -> new RestException(
-                        messageService.getErrorMessage(OrderErrorCode.ITEM_NOT_FOUND_DATABASE, userProjectionId)
+                .orElseThrow(() -> new UserProjectionNotFoundException(
+                        messageService.getErrorMessage(OrderErrorCode.ITEM_NOT_FOUND_DATABASE.getCode(), userProjectionId)
                 ));
 
         stockProjectionService.checkQuantity(quantityByProductId);

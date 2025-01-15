@@ -1,7 +1,5 @@
 package com.benjamin.parsy.ksb.shared.service.jpa;
 
-import com.benjamin.parsy.ksb.shared.exception.ResourceNotFoundException;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -11,8 +9,8 @@ public interface GenericService<I> {
 
     List<I> findAll();
 
-    Optional<I> findById(Long id);
+    Optional<I> findById(long id);
 
-    I deleteById(long id) throws ResourceNotFoundException;
+    boolean deleteById(long id);
 
 }

@@ -4,11 +4,11 @@ import com.benjamin.parsy.ksb.shared.service.message.ErrorMessage;
 import lombok.Getter;
 
 @Getter
-public class RestException extends RuntimeException {
+public abstract class BusinessException extends Exception {
 
     private final ErrorMessage errorMessage;
 
-    public RestException(ErrorMessage errorMessage) {
+    public BusinessException(ErrorMessage errorMessage) {
         super(errorMessage.getFormattedMessage());
         this.errorMessage = errorMessage;
     }

@@ -2,6 +2,7 @@ package com.benjamin.parsy.ksb.order.stockprojection;
 
 import com.benjamin.parsy.ksb.order.shared.OrderErrorCode;
 import com.benjamin.parsy.ksb.order.shared.exception.StockException;
+import com.benjamin.parsy.ksb.order.shared.exception.StockProjectionNotFoundException;
 import com.benjamin.parsy.ksb.shared.service.jpa.GenericServiceImpl;
 import com.benjamin.parsy.ksb.shared.service.message.ErrorMessage;
 import com.benjamin.parsy.ksb.shared.service.message.MessageService;
@@ -48,6 +49,17 @@ public class StockProjectionServiceImpl extends GenericServiceImpl<StockProjecti
             validateStockAvailability(quantityByProductId, projection);
         }
 
+    }
+
+    @Override
+    public void updateStock(long productId, String productName, int price, int stockQuantity) throws StockProjectionNotFoundException {
+
+        if (repository.findByProductId(productId).isEmpty()) {
+            ErrorMessage errorMessage = messageService.getErrorMessage(OrderErrorCode.PRODUCT_NOT_FOUND.getCode(), productId);
+            throw new StockProjectionNotFoundException(errorMessage);
+        }
+
+        repository.updateStock(productId, productName, price, stockQuantity);
     }
 
     /**

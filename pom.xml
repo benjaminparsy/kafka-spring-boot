@@ -32,6 +32,7 @@
         <spring.version>3.4.1</spring.version>
         <springdoc.ui.version>1.7.0</springdoc.ui.version>
         <jackson-databind-nullable.version>0.2.1</jackson-databind-nullable.version>
+        <awaitility.version>3.1.6</awaitility.version>
 
         <!-- Plugins version -->
         <openapi.generator.maven.plugin>7.8.0</openapi.generator.maven.plugin>
@@ -116,6 +117,7 @@
                 <groupId>com.github.javafaker</groupId>
                 <artifactId>javafaker</artifactId>
                 <version>${javafaker.version}</version>
+                <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.springdoc</groupId>
@@ -131,6 +133,18 @@
                 <groupId>org.liquibase</groupId>
                 <artifactId>liquibase-core</artifactId>
                 <version>${liquibase.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.awaitility</groupId>
+                <artifactId>awaitility</artifactId>
+                <version>${awaitility.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.awaitility</groupId>
+                <artifactId>awaitility-proxy</artifactId>
+                <version>${awaitility.version}</version>
+                <scope>test</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>

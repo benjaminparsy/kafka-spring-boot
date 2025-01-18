@@ -1,6 +1,7 @@
 package com.benjamin.parsy.ksb.order.stockprojection;
 
 import com.benjamin.parsy.ksb.order.shared.exception.StockException;
+import com.benjamin.parsy.ksb.order.shared.exception.StockProjectionNotFoundException;
 import com.benjamin.parsy.ksb.shared.service.jpa.GenericService;
 import org.springframework.lang.NonNull;
 
@@ -25,5 +26,7 @@ public interface StockProjectionService extends GenericService<StockProjection> 
      * @throws StockException Exception throw if there is insufficient stock of a desired product
      */
     void checkQuantity(Map<Long, Integer> quantityByProductId) throws StockException;
+
+    void updateStock(long productId, String productName, int price, int stockQuantity) throws StockProjectionNotFoundException;
 
 }

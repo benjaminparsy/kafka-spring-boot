@@ -2,11 +2,13 @@
 # Configuration file
 # ===============================================================
 
-server.port: 8080
 spring:
   # GENERAL
   application:
     name: kafka-spring-boot-ws-order
+  sql:
+    init:
+      mode: never
   # DATASOURCE
   datasource:
     url: jdbc:h2:mem:testdb
@@ -21,7 +23,6 @@ spring:
     properties:
       hibernate:
         format_sql: true
-
   # H2
   h2:
     console:
@@ -32,10 +33,12 @@ spring:
     bootstrap-servers: localhost:29092
     consumer:
       auto-offset-reset: earliest
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      key-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
       properties:
-        spring.json.trusted.packages: '*'
+        spring.deserializer.value.delegate.class: org.springframework.kafka.support.serializer.JsonDeserializer
+        spring.deserializer.key.delegate.class: org.apache.kafka.common.serialization.StringDeserializer
+        spring.json.trusted.packages: "*"
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer

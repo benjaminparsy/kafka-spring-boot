@@ -36,7 +36,7 @@ public class OrderServiceImpl extends GenericServiceImpl<Order> implements Order
 
         UserProjection userProjection = userProjectionService.findById(userProjectionId)
                 .orElseThrow(() -> new UserProjectionNotFoundException(
-                        messageService.getErrorMessage(OrderErrorCode.ITEM_NOT_FOUND_DATABASE.getCode(), userProjectionId)
+                        messageService.getErrorMessage(OrderErrorCode.USERPROJECTION_NOT_FOUND.getCode(), userProjectionId)
                 ));
 
         stockProjectionService.checkQuantity(quantityByProductId);

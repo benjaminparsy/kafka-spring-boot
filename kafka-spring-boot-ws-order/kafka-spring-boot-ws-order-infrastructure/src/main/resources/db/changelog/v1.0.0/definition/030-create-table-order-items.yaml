@@ -1,0 +1,40 @@
+databaseChangeLog:
+  -  changeSet:
+       id: 030-create-table-order-items.yaml
+       author: benjamin.parsy
+       changes:
+         -  createTable:
+              schemaName: app
+              tableName: order_items
+              columns:
+                -  column:
+                     name: id
+                     type: int
+                     autoIncrement: true
+                     constraints:
+                       primaryKey: true
+                       nullable: false
+                - column:
+                    name: product_uuid
+                    type: uuid
+                    constraints:
+                      nullable: false
+                - column:
+                    name: quantity
+                    type: int
+                    constraints:
+                      nullable: false
+                - column:
+                    name: price_at_order
+                    type: decimal(10, 2)
+                    constraints:
+                      nullable: false
+                - column:
+                    name: order_id
+                    type: int
+                    constraints:
+                      nullable: false
+                      referencedTableSchemaName: app
+                      referencedTableName: orders
+                      referencedColumnNames: id
+                      foreignKeyName: fk_orders_order_items

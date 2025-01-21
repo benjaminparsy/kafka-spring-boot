@@ -1,5 +1,0 @@
-Mettre en place les tests
-revoir l'architecture en DDD ou EDD
-Mettre en place les ErroHandler pour Kafka
-Passer le module shared à un module parent
-Revoir les profils de dev, prod, etc

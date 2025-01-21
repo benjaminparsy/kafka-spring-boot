@@ -1,4 +1,4 @@
-package com.benjamin.parsy.ksb.shared.service.message;
+package com.benjamin.parsy.ksb.order.application.rest.message;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;

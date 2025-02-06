@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 @RestControllerAdvice
@@ -32,23 +33,23 @@ public class RestExceptionHandler {
     }
 
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
-    public ResponseEntity<ErrorResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
+    public ResponseEntity<ErrorResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex, Locale locale) {
 
         List<FieldErrorRecord> fieldErrorRecordList = new LinkedList<>();
         for (FieldError error : ex.getBindingResult().getFieldErrors()) {
             fieldErrorRecordList.add(new FieldErrorRecord(error.getField(), error.getDefaultMessage()));
         }
 
-        ErrorMessage errorMessage = messageService.getErrorMessage(GlobalErrorCode.INPUT_DATA_VALIDATION_ERROR.getCode());
+        ErrorMessage errorMessage = messageService.getErrorMessage(GlobalErrorCode.INPUT_DATA_VALIDATION_ERROR.getCode(), locale);
 
         return ResponseEntity.badRequest().body(new ErrorResponse(errorMessage.getCode(),
                 errorMessage.getMessage(), Map.of("errors", fieldErrorRecordList)));
     }
 
     @ExceptionHandler(value = Exception.class)
-    public ResponseEntity<ErrorResponse> handleException(Exception ex) {
+    public ResponseEntity<ErrorResponse> handleException(Exception ex, Locale locale) {
 
-        ErrorMessage errorMessage = messageService.getErrorMessage(GlobalErrorCode.UNKNOWN_ERROR_OCCURRED.getCode());
+        ErrorMessage errorMessage = messageService.getErrorMessage(GlobalErrorCode.UNKNOWN_ERROR_OCCURRED.getCode(), locale);
         log.error(errorMessage.getFormattedMessage(), ex);
 
         return ResponseEntity.badRequest()

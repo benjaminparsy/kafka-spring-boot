@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class OrderEventKafkaPublisher implements OrderEventPublisher {
+public class OrderEventPublisherKafkaImpl implements OrderEventPublisher {
 
     private final OrderCreatedEventAdapter orderCreatedEventAdapter;
     private final OrderCanceledEventAdapter orderCanceledEventAdapter;

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.benjamin.parsy</groupId>
+        <artifactId>kafka-spring-boot-ws-order</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>kafka-spring-boot-ws-order-application</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <name>KSB - WS Order - Application</name>
+    <description>Technology watch project on kafka with Spring Boot - Webservice Order - Application module</description>
+
+    <properties>
+        <skip.spring.boot.repackage>true</skip.spring.boot.repackage>
+    </properties>
+
+    <dependencies>
+        <!-- Internal dependencies -->
+        <dependency>
+            <groupId>com.benjamin.parsy</groupId>
+            <artifactId>kafka-spring-boot-ws-order-domain</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!-- Spring dependencies -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+        </dependency>
+
+        <!-- Spring test dependencies -->
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka-test</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+        </dependency>
+
+        <!-- Third part dependencies -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.openapitools</groupId>
+            <artifactId>jackson-databind-nullable</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+            </testResource>
+        </testResources>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>generate-api</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.openapitools</groupId>
+                        <artifactId>openapi-generator-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>generate</goal>
+                                </goals>
+                                <configuration>
+                                    <inputSpec>${project.basedir}/src/main/resources/openapi.yaml</inputSpec>
+                                    <generatorName>spring</generatorName>
+                                    <apiPackage>${base.package}.order.application.rest</apiPackage>
+                                    <modelPackage>${base.package}.order.application.rest.model</modelPackage>
+                                    <generateApiTests>false</generateApiTests>
+                                    <generateModelTests>false</generateModelTests>
+                                    <generateModelDocumentation>false</generateModelDocumentation>
+                                    <generateApiDocumentation>false</generateApiDocumentation>
+                                    <generateSupportingFiles>false</generateSupportingFiles>
+                                    <skipOperationExample>true</skipOperationExample>
+                                    <schemaMappings>ErrorResponse=${base.package}.order.application.rest.handler.ErrorResponse</schemaMappings>
+                                    <configOptions>
+                                        <useSpringBoot3>true</useSpringBoot3>
+                                        <interfaceOnly>true</interfaceOnly>
+                                    </configOptions>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+</project>

@@ -11,53 +11,23 @@
 
     <artifactId>kafka-spring-boot-ws-order</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <name>KSB - WS Order</name>
+    <packaging>pom</packaging>
+    <name>KSB - WS Order - Root</name>
     <description>Technology watch project on kafka with Spring Boot - Webservice Order</description>
 
+    <modules>
+        <module>kafka-spring-boot-ws-order-domain</module>
+        <module>kafka-spring-boot-ws-order-application</module>
+        <module>kafka-spring-boot-ws-order-infrastructure</module>
+        <module>kafka-spring-boot-ws-order-starter</module>
+    </modules>
+
     <dependencies>
-        <!-- Internal dependencies -->
+        <!-- Third part dependencies -->
         <dependency>
-            <groupId>com.benjamin.parsy</groupId>
-            <artifactId>kafka-spring-boot-shared</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-        <!-- Spring dependencies -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.kafka</groupId>
-            <artifactId>spring-kafka</artifactId>
-        </dependency>
-
-        <!-- Spring test dependencies -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.kafka</groupId>
-            <artifactId>spring-kafka-test</artifactId>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
         </dependency>
     </dependencies>
-
-    <build>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-            </resource>
-        </resources>
-        <testResources>
-            <testResource>
-                <directory>src/test/resources</directory>
-            </testResource>
-        </testResources>
-    </build>
 
 </project>

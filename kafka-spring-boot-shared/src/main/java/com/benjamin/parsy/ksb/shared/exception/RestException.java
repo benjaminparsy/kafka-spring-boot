@@ -1,5 +1,6 @@
 package com.benjamin.parsy.ksb.shared.exception;
 
+import com.benjamin.parsy.ksb.shared.service.message.ErrorMessage;
 import lombok.Getter;
 
 @Getter
@@ -10,14 +11,6 @@ public class RestException extends RuntimeException {
     public RestException(ErrorMessage errorMessage) {
         super(errorMessage.getFormattedMessage());
         this.errorMessage = errorMessage;
-    }
-
-    public String getCode() {
-        return errorMessage.getCode();
-    }
-
-    public String getDescription() {
-        return errorMessage.getDescription();
     }
 
 }

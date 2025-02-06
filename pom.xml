@@ -30,9 +30,16 @@
         <mapstruct.version>1.5.5.Final</mapstruct.version>
         <javafaker.version>0.15</javafaker.version>
         <spring.version>3.4.1</spring.version>
+        <springdoc.ui.version>1.7.0</springdoc.ui.version>
+        <jackson-databind-nullable.version>0.2.1</jackson-databind-nullable.version>
+        <awaitility.version>3.1.6</awaitility.version>
+
+        <!-- Plugins version -->
+        <openapi.generator.maven.plugin>7.8.0</openapi.generator.maven.plugin>
 
         <!-- Custom properties -->
         <skip.spring.boot.repackage>false</skip.spring.boot.repackage>
+        <base.package>com.benjamin.parsy.ksb</base.package>
     </properties>
 
     <dependencyManagement>
@@ -58,6 +65,16 @@
                 <artifactId>spring-kafka</artifactId>
                 <version>${spring-kafka.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-actuator</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-cache</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
 
             <!-- Spring test dependencies -->
             <dependency>
@@ -71,6 +88,20 @@
                 <artifactId>spring-kafka-test</artifactId>
                 <version>${spring-kafka.version}</version>
                 <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.junit</groupId>
+                <artifactId>junit-bom</artifactId>
+                <version>${junit-jupiter.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-bom</artifactId>
+                <version>${mockito.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
 
             <!-- Third part dependencies -->
@@ -100,6 +131,41 @@
                 <groupId>com.github.javafaker</groupId>
                 <artifactId>javafaker</artifactId>
                 <version>${javafaker.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-ui</artifactId>
+                <version>${springdoc.ui.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openapitools</groupId>
+                <artifactId>jackson-databind-nullable</artifactId>
+                <version>${jackson-databind-nullable.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson</groupId>
+                <artifactId>jackson-bom</artifactId>
+                <version>${jackson-bom.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-core</artifactId>
+                <version>${liquibase.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.awaitility</groupId>
+                <artifactId>awaitility</artifactId>
+                <version>${awaitility.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.awaitility</groupId>
+                <artifactId>awaitility-proxy</artifactId>
+                <version>${awaitility.version}</version>
+                <scope>test</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -152,6 +218,16 @@
                 </configuration>
             </plugin>
         </plugins>
+
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.openapitools</groupId>
+                    <artifactId>openapi-generator-maven-plugin</artifactId>
+                    <version>${openapi.generator.maven.plugin}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
 
 </project>

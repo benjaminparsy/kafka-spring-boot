@@ -1,9 +1,10 @@
 package com.benjamin.parsy.ksb.shared.handler;
 
-import com.benjamin.parsy.ksb.shared.exception.ErrorCode;
-import com.benjamin.parsy.ksb.shared.exception.ErrorMessage;
+import com.benjamin.parsy.ksb.shared.exception.BusinessException;
 import com.benjamin.parsy.ksb.shared.exception.RestException;
-import com.benjamin.parsy.ksb.shared.service.MessageService;
+import com.benjamin.parsy.ksb.shared.service.message.ErrorMessage;
+import com.benjamin.parsy.ksb.shared.service.message.GlobalErrorCode;
+import com.benjamin.parsy.ksb.shared.service.message.MessageService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -25,10 +26,16 @@ public class RestExceptionHandler {
         this.messageService = messageService;
     }
 
-    @ExceptionHandler(value = RestException.class)
-    public ResponseEntity<ErrorResponse> handleRestException(RestException ex) {
+    @ExceptionHandler(RestException.class)
+    public ResponseEntity<ErrorResponse> handleMessageException(RestException ex) {
         return ResponseEntity.badRequest()
-                .body(new ErrorResponse(ex.getCode(), ex.getDescription()));
+                .body(new ErrorResponse(ex.getErrorMessage().getCode(), ex.getErrorMessage().getMessage()));
+    }
+
+    @ExceptionHandler(BusinessException.class)
+    public ResponseEntity<ErrorResponse> handleMessageException(BusinessException ex) {
+        return ResponseEntity.badRequest()
+                .body(new ErrorResponse(ex.getErrorMessage().getCode(), ex.getErrorMessage().getMessage()));
     }
 
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
@@ -39,21 +46,20 @@ public class RestExceptionHandler {
             fieldErrorRecordList.add(new FieldErrorRecord(error.getField(), error.getDefaultMessage()));
         }
 
-        ErrorMessage errorIE3 = messageService.getErrorMessage(ErrorCode.BR8);
+        ErrorMessage errorMessage = messageService.getErrorMessage(GlobalErrorCode.INPUT_DATA_VALIDATION_ERROR.name());
 
-        return ResponseEntity.badRequest()
-                .body(new ErrorResponse(errorIE3.getCode(), errorIE3.getDescription(), Map.of("errors", fieldErrorRecordList)));
+        return ResponseEntity.badRequest().body(new ErrorResponse(errorMessage.getCode(),
+                errorMessage.getMessage(), Map.of("errors", fieldErrorRecordList)));
     }
 
     @ExceptionHandler(value = Exception.class)
     public ResponseEntity<ErrorResponse> handleException(Exception ex) {
 
-        ErrorMessage errorIE3 = messageService.getErrorMessage(ErrorCode.BR5, ex.getMessage());
-
-        log.error(errorIE3.getFormattedMessage(), ex);
+        ErrorMessage errorMessage = messageService.getErrorMessage(GlobalErrorCode.UNKNOWN_ERROR_OCCURRED.name());
+        log.error(errorMessage.getFormattedMessage(), ex);
 
         return ResponseEntity.badRequest()
-                .body(new ErrorResponse(errorIE3.getCode(), errorIE3.getDescription()));
+                .body(new ErrorResponse(errorMessage.getCode(), errorMessage.getMessage()));
     }
 
 }

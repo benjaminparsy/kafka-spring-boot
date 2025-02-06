@@ -1,7 +1,7 @@
 package com.benjamin.parsy.ksb.shared.service;
 
 import com.benjamin.parsy.ksb.shared.AbstractTest;
-import com.benjamin.parsy.ksb.shared.exception.GlobalException;
+import com.benjamin.parsy.ksb.shared.service.jpa.GenericService;
 import com.benjamin.parsy.ksb.shared.testclass.Entity;
 import com.benjamin.parsy.ksb.shared.testclass.SubEntity;
 import org.junit.jupiter.api.Test;
@@ -89,13 +89,16 @@ class GenericServiceTest extends AbstractTest {
             "classpath:data.sql"
     })
     @Test
-    void deleteById_deleteOk() {
+    void deleteById_idExist_deleteOk() {
 
         // Given
         Long id = jdbcTemplate.queryForObject("SELECT id FROM sub_entity LIMIT 1", Long.class);
 
         // When and then
-        assertDoesNotThrow(() -> genericService.deleteById(id));
+        boolean result = genericService.deleteById(id);
+
+        // Then
+        assertTrue(result);
 
     }
 
@@ -104,19 +107,17 @@ class GenericServiceTest extends AbstractTest {
             "classpath:data.sql"
     })
     @Test
-    void deleteById_idNotExist_throwException() {
+    void deleteById_idNotExist_deleteNotDone() {
 
         // Given
         long lastId = jdbcTemplate.queryForObject("SELECT id FROM sub_entity ORDER BY id DESC LIMIT 1;", Long.class);
         long idUnknown = lastId + 1;
 
         // When
-        GlobalException exception = assertThrows(GlobalException.class,
-                () -> genericService.deleteById(idUnknown));
+        boolean result = genericService.deleteById(idUnknown);
 
         // Then
-        String msg = String.format("[IE1] Item with id %s cannot be found in database", idUnknown);
-        assertEquals(msg, exception.getMessage());
+        assertFalse(result);
 
     }
 

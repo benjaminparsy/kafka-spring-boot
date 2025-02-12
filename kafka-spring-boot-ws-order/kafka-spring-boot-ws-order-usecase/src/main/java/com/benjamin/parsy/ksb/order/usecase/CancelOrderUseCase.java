@@ -1,6 +1,6 @@
 package com.benjamin.parsy.ksb.order.usecase;
 
-import com.benjamin.parsy.ksb.order.entity.event.OrderEventPublisher;
+import com.benjamin.parsy.ksb.order.entity.event.EventPublisher;
 import com.benjamin.parsy.ksb.order.entity.exception.OrderNotFoundException;
 import com.benjamin.parsy.ksb.order.entity.gateway.EventGateway;
 import com.benjamin.parsy.ksb.order.entity.gateway.OrderGateway;
@@ -14,7 +14,7 @@ import java.util.UUID;
 public class CancelOrderUseCase {
 
     private final OrderGateway orderGateway;
-    private final OrderEventPublisher orderEventPublisher;
+    private final EventPublisher eventPublisher;
     private final EventGateway eventGateway;
 
     public void cancelOrder(UUID orderUuid, String cause) throws OrderNotFoundException {
@@ -25,7 +25,7 @@ public class CancelOrderUseCase {
 
         OrderCanceledEvent orderCanceledEvent = new OrderCanceledEvent(order.getUuid(), cause);
         eventGateway.save(orderCanceledEvent);
-        orderEventPublisher.publish(orderCanceledEvent);
+        eventPublisher.publish(orderCanceledEvent);
 
     }
 

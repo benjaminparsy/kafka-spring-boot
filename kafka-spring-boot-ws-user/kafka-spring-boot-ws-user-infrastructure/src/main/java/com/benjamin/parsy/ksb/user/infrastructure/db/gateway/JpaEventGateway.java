@@ -28,7 +28,7 @@ public class JpaEventGateway implements EventGateway {
 
             KafKaEventEntity kafKaEventEntity = KafKaEventEntity.builder()
                     .eventDate(OffsetDateTime.now())
-                    .eventType(event.getType())
+                    .eventType(event.getType().name())
                     .payload(jsonPayload)
                     .build();
 

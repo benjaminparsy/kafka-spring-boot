@@ -1,6 +1,6 @@
 package com.benjamin.parsy.ksb.order.infrastructure.event.kafka;
 
-import com.benjamin.parsy.ksb.order.entity.event.OrderEventListener;
+import com.benjamin.parsy.ksb.order.entity.event.EventListener;
 import com.benjamin.parsy.ksb.order.entity.exception.OrderNotFoundException;
 import com.benjamin.parsy.ksb.order.entity.model.event.OrderFailedEvent;
 import com.benjamin.parsy.ksb.order.entity.model.event.OrderPaidEvent;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class KafkaOrderEventListener implements OrderEventListener {
+public class KafkaEventListener implements EventListener {
 
     private final CancelOrderUseCase cancelOrderUseCase;
     private final ConfirmedOrderUseCase confirmOrderUseCase;

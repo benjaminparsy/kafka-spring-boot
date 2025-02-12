@@ -16,7 +16,7 @@ public class OrderCreatedEvent extends Event {
     private final double totalPrice;
 
     protected OrderCreatedEvent(UUID orderUuid, UUID userUuid, String orderDate, String status, List<DesiredProduct> products, double totalPrice) {
-        super("ORDER_CREATED");
+        super(EventType.ORDER_CREATED);
         this.orderUuid = orderUuid;
         this.userUuid = userUuid;
         this.orderDate = orderDate;

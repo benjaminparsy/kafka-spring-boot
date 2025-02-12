@@ -10,7 +10,7 @@ public class OrderCanceledEvent extends OrderEvent {
     private final String cause;
 
     public OrderCanceledEvent(UUID uuid, String cause) {
-        super("ORDER_CANCELED", uuid);
+        super(EventType.ORDER_CANCELED, uuid);
         this.cause = cause;
     }
 

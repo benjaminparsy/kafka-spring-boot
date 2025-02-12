@@ -8,7 +8,7 @@ import java.util.UUID;
 public class OrderPaidEvent extends OrderEvent {
 
     public OrderPaidEvent(UUID uuid) {
-        super("ORDER_PAID", uuid);
+        super(EventType.ORDER_PAID, uuid);
     }
 
 }

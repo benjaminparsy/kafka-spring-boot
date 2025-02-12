@@ -19,7 +19,7 @@ public class OrderCreatedEvent extends OrderEvent {
     private final double totalPrice;
 
     public OrderCreatedEvent(Order order) {
-        super("ORDER_CREATED", order.getUuid());
+        super(EventType.ORDER_CREATED, order.getUuid());
         this.userUuid = order.getUserUuid();
         this.orderDate = order.getOrderDate();
         this.status = order.getStatus();

@@ -1,6 +1,6 @@
 package com.benjamin.parsy.ksb.order.usecase;
 
-import com.benjamin.parsy.ksb.order.entity.event.OrderEventPublisher;
+import com.benjamin.parsy.ksb.order.entity.event.EventPublisher;
 import com.benjamin.parsy.ksb.order.entity.exception.OrderNotFoundException;
 import com.benjamin.parsy.ksb.order.entity.gateway.EventGateway;
 import com.benjamin.parsy.ksb.order.entity.gateway.OrderGateway;
@@ -31,7 +31,7 @@ class CancelOrderUseCaseTest {
     private EventGateway eventGateway;
 
     @Mock
-    private OrderEventPublisher orderEventPublisher;
+    private EventPublisher eventPublisher;
 
     @BeforeEach
     void setUp() {
@@ -82,11 +82,11 @@ class CancelOrderUseCaseTest {
 
     private void checkOrderEventPublisher(Order order) {
 
-        verify(orderEventPublisher, times(1))
+        verify(eventPublisher, times(1))
                 .publish(any(OrderCanceledEvent.class));
 
         ArgumentCaptor<OrderCanceledEvent> orderEventCaptor = ArgumentCaptor.forClass(OrderCanceledEvent.class);
-        verify(orderEventPublisher).publish(orderEventCaptor.capture());
+        verify(eventPublisher).publish(orderEventCaptor.capture());
         assertEquals(order.getUuid(), orderEventCaptor.getValue().getUuid());
 
     }

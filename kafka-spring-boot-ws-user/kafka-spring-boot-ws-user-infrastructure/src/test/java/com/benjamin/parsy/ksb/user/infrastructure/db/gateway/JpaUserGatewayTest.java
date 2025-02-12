@@ -28,7 +28,7 @@ class JpaUserGatewayTest {
         UUID orderUuid = UUID.fromString("56a99dec-d066-411f-9fa7-d525877c4117");
 
         // When and then
-        assertDoesNotThrow(() -> userRepositoryJpaImpl.findById(orderUuid));
+        assertDoesNotThrow(() -> userRepositoryJpaImpl.existsById(orderUuid));
 
     }
 
@@ -43,7 +43,7 @@ class JpaUserGatewayTest {
         UUID orderUuid = UUID.randomUUID();
 
         // When and then
-        assertThrows(UserNotFoundException.class,() -> userRepositoryJpaImpl.findById(orderUuid));
+        assertThrows(UserNotFoundException.class,() -> userRepositoryJpaImpl.existsById(orderUuid));
 
     }
 

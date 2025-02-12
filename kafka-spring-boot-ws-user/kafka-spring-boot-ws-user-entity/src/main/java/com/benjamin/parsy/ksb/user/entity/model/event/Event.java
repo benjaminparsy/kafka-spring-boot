@@ -5,9 +5,9 @@ import lombok.Getter;
 @Getter
 public abstract class Event {
 
-    private final String type;
+    private final EventType type;
 
-    protected Event(String type) {
+    protected Event(EventType type) {
         this.type = type;
     }
 

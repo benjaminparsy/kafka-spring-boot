@@ -10,7 +10,7 @@ public class UserValidatedEvent extends Event {
     private final UUID orderUuid;
 
     public UserValidatedEvent(UUID orderUuid) {
-        super("USER_VALIDATED");
+        super(EventType.USER_VALIDATED);
         this.orderUuid = orderUuid;
     }
 

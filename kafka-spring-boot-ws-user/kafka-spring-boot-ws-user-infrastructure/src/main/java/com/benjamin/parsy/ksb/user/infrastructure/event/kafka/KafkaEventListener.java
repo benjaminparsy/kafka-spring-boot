@@ -1,6 +1,6 @@
 package com.benjamin.parsy.ksb.user.infrastructure.event.kafka;
 
-import com.benjamin.parsy.ksb.user.entity.event.UserEventListener;
+import com.benjamin.parsy.ksb.user.entity.event.EventListener;
 import com.benjamin.parsy.ksb.user.entity.model.event.OrderCreatedEvent;
 import com.benjamin.parsy.ksb.user.infrastructure.configuration.KafkaConstant;
 import com.benjamin.parsy.ksb.user.usecase.ValidatedUserUseCase;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class KafkaUserEventListener implements UserEventListener {
+public class KafkaEventListener implements EventListener {
 
     private final ValidatedUserUseCase validatedUserUseCase;
 

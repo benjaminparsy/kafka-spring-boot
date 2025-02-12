@@ -1,10 +1,11 @@
 package com.benjamin.parsy.ksb.user.usecase;
 
-import com.benjamin.parsy.ksb.user.entity.event.UserEventPublisher;
+import com.benjamin.parsy.ksb.user.entity.event.EventPublisher;
 import com.benjamin.parsy.ksb.user.entity.exception.UserNotFoundException;
 import com.benjamin.parsy.ksb.user.entity.gateway.EventGateway;
 import com.benjamin.parsy.ksb.user.entity.gateway.UserGateway;
 import com.benjamin.parsy.ksb.user.entity.model.User;
+import com.benjamin.parsy.ksb.user.entity.model.event.EventType;
 import com.benjamin.parsy.ksb.user.entity.model.event.OrderFailedEvent;
 import com.benjamin.parsy.ksb.user.entity.model.event.UserValidatedEvent;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,7 +33,7 @@ class ValidatedUserUseCaseTest {
     private EventGateway eventGateway;
 
     @Mock
-    private UserEventPublisher userEventPublisher;
+    private EventPublisher eventPublisher;
 
     @BeforeEach
     void setUp() {
@@ -46,24 +47,24 @@ class ValidatedUserUseCaseTest {
         UUID orderUuid = UUID.randomUUID();
         User user = DataTestUtils.createUser();
 
-        when(userGateway.findById(user.getUuid()))
-                .thenReturn(user);
+        doNothing().when(userGateway)
+                .existsById(user.getUuid());
 
         // When
         validatedUserUseCase.validateUser(orderUuid, user.getUuid());
 
         // Then
-        verify(userGateway, times(1)).findById(any(UUID.class));
+        verify(userGateway, times(1)).existsById(any(UUID.class));
 
         ArgumentCaptor<UserValidatedEvent> eventCaptor = ArgumentCaptor.forClass(UserValidatedEvent.class);
 
         verify(eventGateway, times(1)).save(any(UserValidatedEvent.class));
         verify(eventGateway).save(eventCaptor.capture());
-        assertEquals("USER_VALIDATED", eventCaptor.getValue().getType());
+        assertEquals(EventType.USER_VALIDATED, eventCaptor.getValue().getType());
 
-        verify(userEventPublisher, times(1)).publishUserValidated(any(UserValidatedEvent.class));
-        verify(userEventPublisher).publishUserValidated(eventCaptor.capture());
-        assertEquals("USER_VALIDATED", eventCaptor.getValue().getType());
+        verify(eventPublisher, times(1)).publish(any(UserValidatedEvent.class));
+        verify(eventPublisher).publish(eventCaptor.capture());
+        assertEquals(EventType.USER_VALIDATED, eventCaptor.getValue().getType());
 
     }
 
@@ -74,24 +75,25 @@ class ValidatedUserUseCaseTest {
         UUID orderUuid = UUID.randomUUID();
         UUID userUuid = UUID.randomUUID();
 
-        when(userGateway.findById(userUuid))
-                .thenThrow(new UserNotFoundException("User not found for id " + userUuid));
+        doThrow(new UserNotFoundException("User not found for id " + userUuid))
+                .when(userGateway)
+                .existsById(userUuid);
 
         // When
         validatedUserUseCase.validateUser(orderUuid, userUuid);
 
         // Then
-        verify(userGateway, times(1)).findById(any(UUID.class));
+        verify(userGateway, times(1)).existsById(any(UUID.class));
 
         ArgumentCaptor<OrderFailedEvent> eventCaptor = ArgumentCaptor.forClass(OrderFailedEvent.class);
 
         verify(eventGateway, times(1)).save(any(OrderFailedEvent.class));
         verify(eventGateway).save(eventCaptor.capture());
-        assertEquals("ORDER_FAILED", eventCaptor.getValue().getType());
+        assertEquals(EventType.ORDER_FAILED, eventCaptor.getValue().getType());
 
-        verify(userEventPublisher, times(1)).publishOrderFailed(any(OrderFailedEvent.class));
-        verify(userEventPublisher).publishOrderFailed(eventCaptor.capture());
-        assertEquals("ORDER_FAILED", eventCaptor.getValue().getType());
+        verify(eventPublisher, times(1)).publish(any(OrderFailedEvent.class));
+        verify(eventPublisher).publish(eventCaptor.capture());
+        assertEquals(EventType.ORDER_FAILED, eventCaptor.getValue().getType());
 
     }
 

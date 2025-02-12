@@ -11,7 +11,7 @@ public class OrderFailedEvent extends Event {
     private final String cause;
 
     public OrderFailedEvent(UUID orderUuid, String cause) {
-        super("ORDER_FAILED");
+        super(EventType.ORDER_FAILED);
         this.orderUuid = orderUuid;
         this.cause = cause;
     }

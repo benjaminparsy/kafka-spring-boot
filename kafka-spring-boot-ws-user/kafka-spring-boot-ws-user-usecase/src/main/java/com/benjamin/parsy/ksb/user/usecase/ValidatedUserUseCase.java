@@ -1,10 +1,9 @@
 package com.benjamin.parsy.ksb.user.usecase;
 
-import com.benjamin.parsy.ksb.user.entity.event.UserEventPublisher;
+import com.benjamin.parsy.ksb.user.entity.event.EventPublisher;
 import com.benjamin.parsy.ksb.user.entity.exception.UserNotFoundException;
 import com.benjamin.parsy.ksb.user.entity.gateway.EventGateway;
 import com.benjamin.parsy.ksb.user.entity.gateway.UserGateway;
-import com.benjamin.parsy.ksb.user.entity.model.User;
 import com.benjamin.parsy.ksb.user.entity.model.event.OrderFailedEvent;
 import com.benjamin.parsy.ksb.user.entity.model.event.UserValidatedEvent;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +15,7 @@ public class ValidatedUserUseCase {
 
     private final UserGateway userGateway;
     private final EventGateway eventGateway;
-    private final UserEventPublisher userEventPublisher;
+    private final EventPublisher eventPublisher;
 
     /**
      * To validate a user for an order
@@ -28,17 +27,17 @@ public class ValidatedUserUseCase {
 
         try {
 
-            User user = userGateway.findById(userUuid);
+            userGateway.existsById(userUuid);
 
             UserValidatedEvent userValidatedEvent = new UserValidatedEvent(orderUuid);
             eventGateway.save(userValidatedEvent);
-            userEventPublisher.publishUserValidated(userValidatedEvent);
+            eventPublisher.publish(userValidatedEvent);
 
         } catch (UserNotFoundException e) {
 
             OrderFailedEvent orderFailedEvent = new OrderFailedEvent(orderUuid, e.getMessage());
             eventGateway.save(orderFailedEvent);
-            userEventPublisher.publishOrderFailed(orderFailedEvent);
+            eventPublisher.publish(orderFailedEvent);
 
         }
 

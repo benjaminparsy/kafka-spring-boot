@@ -12,22 +12,13 @@
     <artifactId>kafka-spring-boot-ws-user</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>KSB - WS User - Root</name>
+    <name>KSB - WS User</name>
     <description>Technology watch project on kafka with Spring Boot - Webservice User</description>
 
     <modules>
-        <module>kafka-spring-boot-ws-user-domain</module>
-        <module>kafka-spring-boot-ws-user-application</module>
+        <module>kafka-spring-boot-ws-user-entity</module>
+        <module>kafka-spring-boot-ws-user-usecase</module>
         <module>kafka-spring-boot-ws-user-infrastructure</module>
-        <module>kafka-spring-boot-ws-user-starter</module>
     </modules>
-
-    <dependencies>
-        <!-- Third part dependencies -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-        </dependency>
-    </dependencies>
 
 </project>

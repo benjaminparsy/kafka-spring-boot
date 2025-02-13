@@ -16,7 +16,6 @@ import org.mockito.MockitoAnnotations;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 class ConfirmedOrderUseCaseTest {
@@ -51,43 +50,19 @@ class ConfirmedOrderUseCaseTest {
         assertDoesNotThrow(() -> confirmedOrderUseCase.confirmOrder(order.getUuid()));
 
         // Then
-        checkOrderGateway();
-        checkEventGateway(order);
-        checkOrderEventPublisher(order);
-
-    }
-
-
-    private void checkOrderGateway() {
-
-        verify(orderGateway, times(1))
-                .save(any(Order.class));
-
+        // Check order gateway
         ArgumentCaptor<Order> orderCaptor = ArgumentCaptor.forClass(Order.class);
-        verify(orderGateway).save(orderCaptor.capture());
+        verify(orderGateway, times(1)).update(orderCaptor.capture());
         assertEquals(OrderStatus.CONFIRMED, orderCaptor.getValue().getStatus());
 
-    }
-
-    private void checkEventGateway(Order order) {
-
-        verify(eventGateway, times(1))
-                .save(any(OrderConfirmedEvent.class));
-
+        // Check event gateway
         ArgumentCaptor<OrderConfirmedEvent> orderEventCaptor = ArgumentCaptor.forClass(OrderConfirmedEvent.class);
-        verify(eventGateway).save(orderEventCaptor.capture());
-        assertEquals(order.getUuid(), orderEventCaptor.getValue().getUuid());
+        verify(eventGateway, times(1)).save(orderEventCaptor.capture());
+        assertEquals(order.getUuid(), orderEventCaptor.getValue().getOrderUuid());
 
-    }
-
-    private void checkOrderEventPublisher(Order order) {
-
-        verify(eventPublisher, times(1))
-                .publish(any(OrderConfirmedEvent.class));
-
-        ArgumentCaptor<OrderConfirmedEvent> orderEventCaptor = ArgumentCaptor.forClass(OrderConfirmedEvent.class);
-        verify(eventPublisher).publish(orderEventCaptor.capture());
-        assertEquals(order.getUuid(), orderEventCaptor.getValue().getUuid());
+        // Check order event publisher
+        verify(eventPublisher, times(1)).publishOrderConfirmedEvent(orderEventCaptor.capture());
+        assertEquals(order.getUuid(), orderEventCaptor.getValue().getOrderUuid());
 
     }
 

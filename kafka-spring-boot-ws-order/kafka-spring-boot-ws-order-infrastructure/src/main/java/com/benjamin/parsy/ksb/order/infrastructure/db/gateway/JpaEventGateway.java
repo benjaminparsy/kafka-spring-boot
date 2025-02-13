@@ -20,7 +20,7 @@ public class JpaEventGateway implements EventGateway {
     private final KafkaEventRepository kafkaEventRepository;
 
     @Override
-    public Event save(Event event) {
+    public void save(Event event) {
 
         try {
 
@@ -28,7 +28,7 @@ public class JpaEventGateway implements EventGateway {
 
             KafKaEventEntity kafKaEventEntity = KafKaEventEntity.builder()
                     .eventDate(OffsetDateTime.now())
-                    .eventType(event.getType().name())
+                    .eventType(event.getEventType().name())
                     .payload(jsonPayload)
                     .build();
 
@@ -38,7 +38,6 @@ public class JpaEventGateway implements EventGateway {
             log.error("An error has occurred while recording a kafka event");
         }
 
-        return event;
     }
 
 }

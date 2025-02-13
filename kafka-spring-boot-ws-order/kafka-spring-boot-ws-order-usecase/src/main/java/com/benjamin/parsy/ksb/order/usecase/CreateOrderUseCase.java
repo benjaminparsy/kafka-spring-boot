@@ -32,7 +32,7 @@ public class CreateOrderUseCase {
         // 2. Publish an order creation event
         OrderCreatedEvent orderCreatedEvent = new OrderCreatedEvent(order);
         eventGateway.save(orderCreatedEvent);
-        eventPublisher.publish(orderCreatedEvent);
+        eventPublisher.publishOrderCreatedEvent(orderCreatedEvent);
 
         return order;
     }

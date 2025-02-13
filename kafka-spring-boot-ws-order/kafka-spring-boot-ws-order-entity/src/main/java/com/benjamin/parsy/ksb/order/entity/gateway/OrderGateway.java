@@ -16,6 +16,13 @@ public interface OrderGateway {
     Order save(Order order);
 
     /**
+     * To update an order
+     *
+     * @param order Order to update
+     */
+    void update(Order order);
+
+    /**
      * To search for an order by its identifier
      *
      * @param uuid Order identifier

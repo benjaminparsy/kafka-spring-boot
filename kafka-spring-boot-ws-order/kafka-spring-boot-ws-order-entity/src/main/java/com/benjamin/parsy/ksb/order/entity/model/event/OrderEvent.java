@@ -7,11 +7,11 @@ import java.util.UUID;
 @Getter
 public abstract class OrderEvent extends Event {
 
-    public final UUID uuid;
+    public final UUID orderUuid;
 
-    protected OrderEvent(EventType eventType, UUID uuid) {
+    protected OrderEvent(EventType eventType, UUID orderUuid) {
         super(eventType);
-        this.uuid = uuid;
+        this.orderUuid = orderUuid;
     }
 
 }

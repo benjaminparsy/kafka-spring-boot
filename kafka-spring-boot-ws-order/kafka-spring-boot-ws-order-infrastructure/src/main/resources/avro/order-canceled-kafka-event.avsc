@@ -1,0 +1,15 @@
+{
+  "namespace": "com.benjamin.parsy.ksb.order.infrastructure.event.kafka.dto",
+  "type": "record",
+  "name": "OrderCanceledKafkaEvent",
+  "fields": [
+    {
+      "name": "orderUuid",
+      "type": "string"
+    },
+    {
+      "name": "cause",
+      "type": "string"
+    }
+  ]
+}

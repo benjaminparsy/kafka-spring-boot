@@ -1,0 +1,12 @@
+{
+  "namespace": "com.benjamin.parsy.ksb.user.infrastructure.event.kafka.dto",
+  "type": "record",
+  "name": "UserValidatedKafkaEvent",
+  "fields": [
+    {
+      "name": "orderUuid",
+      "type": "string",
+      "avro.java.string": "String"
+    }
+  ]
+}

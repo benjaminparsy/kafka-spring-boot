@@ -60,11 +60,11 @@ class ValidatedUserUseCaseTest {
 
         verify(eventGateway, times(1)).save(any(UserValidatedEvent.class));
         verify(eventGateway).save(eventCaptor.capture());
-        assertEquals(EventType.USER_VALIDATED, eventCaptor.getValue().getType());
+        assertEquals(EventType.USER_VALIDATED, eventCaptor.getValue().getEventType());
 
-        verify(eventPublisher, times(1)).publish(any(UserValidatedEvent.class));
-        verify(eventPublisher).publish(eventCaptor.capture());
-        assertEquals(EventType.USER_VALIDATED, eventCaptor.getValue().getType());
+        verify(eventPublisher, times(1)).publishUserValidatedEvent(any(UserValidatedEvent.class));
+        verify(eventPublisher).publishUserValidatedEvent(eventCaptor.capture());
+        assertEquals(EventType.USER_VALIDATED, eventCaptor.getValue().getEventType());
 
     }
 
@@ -89,11 +89,11 @@ class ValidatedUserUseCaseTest {
 
         verify(eventGateway, times(1)).save(any(OrderFailedEvent.class));
         verify(eventGateway).save(eventCaptor.capture());
-        assertEquals(EventType.ORDER_FAILED, eventCaptor.getValue().getType());
+        assertEquals(EventType.ORDER_FAILED, eventCaptor.getValue().getEventType());
 
-        verify(eventPublisher, times(1)).publish(any(OrderFailedEvent.class));
-        verify(eventPublisher).publish(eventCaptor.capture());
-        assertEquals(EventType.ORDER_FAILED, eventCaptor.getValue().getType());
+        verify(eventPublisher, times(1)).publishOrderFailedEvent(any(OrderFailedEvent.class));
+        verify(eventPublisher).publishOrderFailedEvent(eventCaptor.capture());
+        assertEquals(EventType.ORDER_FAILED, eventCaptor.getValue().getEventType());
 
     }
 

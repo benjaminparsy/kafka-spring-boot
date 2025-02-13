@@ -4,8 +4,8 @@ import java.util.UUID;
 
 public class OrderConfirmedEvent extends OrderEvent {
 
-    public OrderConfirmedEvent(UUID uuid) {
-        super(EventType.ORDER_CONFIRMED, uuid);
+    public OrderConfirmedEvent(UUID orderUuid) {
+        super(EventType.ORDER_CONFIRMED, orderUuid);
     }
 
 }

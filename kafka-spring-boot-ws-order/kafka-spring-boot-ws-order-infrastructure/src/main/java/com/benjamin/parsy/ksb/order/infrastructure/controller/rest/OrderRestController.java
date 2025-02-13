@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-public class OrderRestController implements OrdersApi {
+public class OrderRestController implements com.benjamin.parsy.ksb.order.infrastructure.controller.rest.OrdersApi {
 
     private final CreateOrderUseCase createOrderUseCase;
 

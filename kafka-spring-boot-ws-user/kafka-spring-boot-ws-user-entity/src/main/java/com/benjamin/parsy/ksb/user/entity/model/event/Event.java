@@ -5,10 +5,10 @@ import lombok.Getter;
 @Getter
 public abstract class Event {
 
-    private final EventType type;
+    public final EventType eventType;
 
-    protected Event(EventType type) {
-        this.type = type;
+    protected Event(EventType eventType) {
+        this.eventType = eventType;
     }
 
 }

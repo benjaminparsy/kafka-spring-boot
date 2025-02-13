@@ -1,12 +1,9 @@
 package com.benjamin.parsy.ksb.order.entity.event;
 
-import com.benjamin.parsy.ksb.order.entity.model.event.OrderFailedEvent;
-import com.benjamin.parsy.ksb.order.entity.model.event.OrderPaidEvent;
+public interface EventListener<T> {
 
-public interface EventListener {
+    void handleCancelOrder(T event);
 
-    void handleCancelOrder(OrderFailedEvent event);
-
-    void handleOrderPaid(OrderPaidEvent event);
+    void handleOrderPaid(T event);
 
 }

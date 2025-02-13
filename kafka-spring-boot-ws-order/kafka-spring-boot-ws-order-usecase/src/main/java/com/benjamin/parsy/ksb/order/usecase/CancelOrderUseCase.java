@@ -21,11 +21,11 @@ public class CancelOrderUseCase {
 
         Order order = orderGateway.findById(orderUuid);
         order.cancel();
-        orderGateway.save(order);
+        orderGateway.update(order);
 
         OrderCanceledEvent orderCanceledEvent = new OrderCanceledEvent(order.getUuid(), cause);
         eventGateway.save(orderCanceledEvent);
-        eventPublisher.publish(orderCanceledEvent);
+        eventPublisher.publishOrderCanceledEvent(orderCanceledEvent);
 
     }
 

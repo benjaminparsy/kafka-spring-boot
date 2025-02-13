@@ -31,13 +31,13 @@ public class ValidatedUserUseCase {
 
             UserValidatedEvent userValidatedEvent = new UserValidatedEvent(orderUuid);
             eventGateway.save(userValidatedEvent);
-            eventPublisher.publish(userValidatedEvent);
+            eventPublisher.publishUserValidatedEvent(userValidatedEvent);
 
         } catch (UserNotFoundException e) {
 
             OrderFailedEvent orderFailedEvent = new OrderFailedEvent(orderUuid, e.getMessage());
             eventGateway.save(orderFailedEvent);
-            eventPublisher.publish(orderFailedEvent);
+            eventPublisher.publishOrderFailedEvent(orderFailedEvent);
 
         }
 

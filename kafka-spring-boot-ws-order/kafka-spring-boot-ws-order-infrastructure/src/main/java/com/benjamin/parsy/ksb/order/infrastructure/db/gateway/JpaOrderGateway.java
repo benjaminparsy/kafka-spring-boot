@@ -8,8 +8,10 @@ import com.benjamin.parsy.ksb.order.infrastructure.db.jpa.repository.OrderItemRe
 import com.benjamin.parsy.ksb.order.infrastructure.db.jpa.repository.OrderRepository;
 import com.benjamin.parsy.ksb.order.infrastructure.db.jpa.schema.OrderEntity;
 import com.benjamin.parsy.ksb.order.infrastructure.db.jpa.schema.OrderItemEntity;
+import com.benjamin.parsy.ksb.order.infrastructure.db.jpa.schema.OrderStatusEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
@@ -21,6 +23,7 @@ public class JpaOrderGateway implements OrderGateway {
     private final OrderRepository orderRepository;
     private final OrderItemRepository orderItemRepository;
 
+    @Transactional
     @Override
     public Order save(Order order) {
 
@@ -33,6 +36,15 @@ public class JpaOrderGateway implements OrderGateway {
         orderItemRepository.saveAll(orderItemEntityList);
 
         return order;
+    }
+
+    @Transactional
+    @Override
+    public void update(Order order) {
+
+        OrderStatusEnum orderStatusEnum = OrderStatusEnum.safeValueOf(order.getStatus().name());
+
+        orderRepository.updateByUuid(orderStatusEnum, order.getTotalPrice(), order.getUuid());
     }
 
     @Override

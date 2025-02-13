@@ -9,8 +9,8 @@ public class OrderCanceledEvent extends OrderEvent {
 
     private final String cause;
 
-    public OrderCanceledEvent(UUID uuid, String cause) {
-        super(EventType.ORDER_CANCELED, uuid);
+    public OrderCanceledEvent(UUID orderUuid, String cause) {
+        super(EventType.ORDER_CANCELED, orderUuid);
         this.cause = cause;
     }
 

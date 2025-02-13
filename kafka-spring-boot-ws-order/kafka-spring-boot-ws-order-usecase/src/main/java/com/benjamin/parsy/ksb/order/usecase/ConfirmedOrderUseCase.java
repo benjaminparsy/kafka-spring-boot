@@ -21,11 +21,11 @@ public class ConfirmedOrderUseCase {
 
         Order order = orderGateway.findById(orderUuid);
         order.confirm();
-        orderGateway.save(order);
+        orderGateway.update(order);
 
         OrderConfirmedEvent orderConfirmedEvent = new OrderConfirmedEvent(order.getUuid());
         eventGateway.save(orderConfirmedEvent);
-        eventPublisher.publish(orderConfirmedEvent);
+        eventPublisher.publishOrderConfirmedEvent(orderConfirmedEvent);
 
     }
 

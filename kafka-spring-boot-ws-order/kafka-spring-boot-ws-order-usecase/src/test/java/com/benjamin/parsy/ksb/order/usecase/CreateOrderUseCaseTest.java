@@ -58,26 +58,11 @@ class CreateOrderUseCaseTest {
         when(orderGateway.save(any(Order.class)))
                 .thenAnswer(i -> i.getArgument(0));
 
-        doNothing().when(eventPublisher)
-                .publish(any(OrderCreatedEvent.class));
-
-
         // When
         Order order = Assertions.assertDoesNotThrow(() -> createOrderUseCase.createOrder(userUuid, products));
 
         // Then
-        verify(eventPublisher, times(1))
-                .publish(any(OrderCreatedEvent.class));
-
-        checkOrder(order, products);
-        checkOrderGateway();
-        checkEventGateway(order);
-        checkOrderEventPublisher(order);
-
-    }
-
-    private void checkOrder(Order order, List<IDesiredProductPublicData> products) {
-
+        // Check order
         assertNotNull(order.getUuid());
         assertNotNull(order.getUserUuid());
         assertTrue(order.getOrderDate().isAfter(datetimeBeforeTest));
@@ -85,34 +70,17 @@ class CreateOrderUseCaseTest {
         assertEquals(products.size(), order.getProducts().size());
         assertTrue(order.getTotalPrice() > 0);
 
-    }
+        // Check order gateway
+        verify(orderGateway, times(1)).save(any(Order.class));
 
-    private void checkOrderGateway() {
-
-        verify(orderGateway, times(1))
-                .save(any(Order.class));
-
-    }
-
-    private void checkEventGateway(Order order) {
-
-        verify(eventGateway, times(1))
-                .save(any(OrderCreatedEvent.class));
-
+        // Check event gateway
         ArgumentCaptor<OrderCreatedEvent> orderEventCaptor = ArgumentCaptor.forClass(OrderCreatedEvent.class);
-        verify(eventGateway).save(orderEventCaptor.capture());
-        assertEquals(order.getUuid(), orderEventCaptor.getValue().getUuid());
+        verify(eventGateway, times(1)).save(orderEventCaptor.capture());
+        assertEquals(order.getUuid(), orderEventCaptor.getValue().getOrderUuid());
 
-    }
-
-    private void checkOrderEventPublisher(Order order) {
-
-        verify(eventPublisher, times(1))
-                .publish(any(OrderCreatedEvent.class));
-
-        ArgumentCaptor<OrderCreatedEvent> orderEventCaptor = ArgumentCaptor.forClass(OrderCreatedEvent.class);
-        verify(eventPublisher).publish(orderEventCaptor.capture());
-        assertEquals(order.getUuid(), orderEventCaptor.getValue().getUuid());
+        // Check order event publisher
+        verify(eventPublisher, times(1)).publishOrderCreatedEvent(orderEventCaptor.capture());
+        assertEquals(order.getUuid(), orderEventCaptor.getValue().getOrderUuid());
 
     }
 

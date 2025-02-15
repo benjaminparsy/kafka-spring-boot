@@ -1,8 +1,9 @@
-package com.benjamin.parsy.ksb.order.infrastructure.db.gateway;
+package com.benjamin.parsy.ksb.order.infrastructure.db.jpa.gateway;
 
 import com.benjamin.parsy.ksb.order.entity.exception.OrderNotFoundException;
 import com.benjamin.parsy.ksb.order.entity.model.DesiredProduct;
 import com.benjamin.parsy.ksb.order.entity.model.Order;
+import com.benjamin.parsy.ksb.order.infrastructure.ITest;
 import com.benjamin.parsy.ksb.order.infrastructure.db.jpa.repository.OrderItemRepository;
 import com.benjamin.parsy.ksb.order.infrastructure.db.jpa.repository.OrderRepository;
 import org.junit.jupiter.api.Test;
@@ -16,7 +17,7 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-class JpaOrderGatewayTest {
+class JpaOrderGatewayTest extends ITest {
 
     @Autowired
     private OrderRepository orderRepository;

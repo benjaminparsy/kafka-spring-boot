@@ -1,6 +1,7 @@
 package com.benjamin.parsy.ksb.order.infrastructure.controller.rest;
 
 import com.benjamin.parsy.ksb.order.entity.model.OrderStatus;
+import com.benjamin.parsy.ksb.order.infrastructure.ITest;
 import com.benjamin.parsy.ksb.order.infrastructure.controller.rest.dto.ResponseOrderApiDto;
 import com.benjamin.parsy.ksb.order.infrastructure.shared.JsonHelper;
 import org.junit.jupiter.api.Test;
@@ -24,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class OrderRestControllerTest {
+class OrderRestControllerTest extends ITest {
 
     @Autowired
     private MockMvc mockMvc;

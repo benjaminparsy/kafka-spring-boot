@@ -1,7 +1,6 @@
 package com.benjamin.parsy.ksb.order.infrastructure;
 
-import com.benjamin.parsy.ksb.order.infrastructure.db.gateway.JpaEventGateway;
-import com.benjamin.parsy.ksb.order.infrastructure.db.gateway.JpaOrderGateway;
+import com.benjamin.parsy.ksb.order.infrastructure.db.jpa.gateway.JpaOrderGateway;
 import com.benjamin.parsy.ksb.order.infrastructure.event.kafka.KafkaEventPublisher;
 import com.benjamin.parsy.ksb.order.usecase.CancelOrderUseCase;
 import com.benjamin.parsy.ksb.order.usecase.ConfirmedOrderUseCase;
@@ -14,23 +13,20 @@ public class UseCaseBeanConnector {
 
     @Bean
     public CreateOrderUseCase createOrderUseCase(JpaOrderGateway jpaOrderGateway,
-                                                 KafkaEventPublisher kafkaOrderEventPublisher,
-                                                 JpaEventGateway jpaEventGateway) {
-        return new CreateOrderUseCase(jpaOrderGateway, kafkaOrderEventPublisher, jpaEventGateway);
+                                                 KafkaEventPublisher kafkaOrderEventPublisher) {
+        return new CreateOrderUseCase(jpaOrderGateway, kafkaOrderEventPublisher);
     }
 
     @Bean
     public ConfirmedOrderUseCase confirmedOrderUseCase(JpaOrderGateway jpaOrderGateway,
-                                                       KafkaEventPublisher kafkaOrderEventPublisher,
-                                                       JpaEventGateway jpaEventGateway) {
-        return new ConfirmedOrderUseCase(jpaOrderGateway, kafkaOrderEventPublisher, jpaEventGateway);
+                                                       KafkaEventPublisher kafkaOrderEventPublisher) {
+        return new ConfirmedOrderUseCase(jpaOrderGateway, kafkaOrderEventPublisher);
     }
 
     @Bean
     public CancelOrderUseCase cancelOrderUseCase(JpaOrderGateway jpaOrderGateway,
-                                                 KafkaEventPublisher kafkaOrderEventPublisher,
-                                                 JpaEventGateway jpaEventGateway) {
-        return new CancelOrderUseCase(jpaOrderGateway, kafkaOrderEventPublisher, jpaEventGateway);
+                                                 KafkaEventPublisher kafkaOrderEventPublisher) {
+        return new CancelOrderUseCase(jpaOrderGateway, kafkaOrderEventPublisher);
     }
 
 }

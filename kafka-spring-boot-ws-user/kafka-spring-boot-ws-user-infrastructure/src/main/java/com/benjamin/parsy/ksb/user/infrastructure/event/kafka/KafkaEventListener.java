@@ -17,7 +17,7 @@ public class KafkaEventListener implements EventListener<GenericRecord> {
     private final ValidatedUserUseCase validatedUserUseCase;
 
     @Override
-    @KafkaListener(topics = KafkaConstant.TOPIC_ORDER_CREATED, groupId = KafkaConstant.GROUP_ID_USER)
+    @KafkaListener(topics = KafkaConstant.Consumer.TOPIC_ORDER_CREATED, groupId = KafkaConstant.GROUP_ID_USER)
     public void handleOrderCreatedEvent(GenericRecord orderCreatedEvent) {
 
         UUID orderUuid = UUID.fromString(orderCreatedEvent.get("orderUuid").toString());

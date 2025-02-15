@@ -22,7 +22,7 @@ public class KafkaEventListener implements EventListener<GenericRecord> {
     private final ConfirmedOrderUseCase confirmOrderUseCase;
 
     @Override
-    @KafkaListener(topics = KafkaConstant.TOPIC_ORDER_FAILED, groupId = KafkaConstant.GROUP_ID_ORDER)
+    @KafkaListener(topics = KafkaConstant.Consumer.TOPIC_ORDER_FAILED, groupId = KafkaConstant.GROUP_ID_ORDER)
     public void handleCancelOrder(GenericRecord orderFailedEvent) {
 
         UUID orderUuid = UUID.fromString(orderFailedEvent.get("orderUuid").toString());
@@ -37,7 +37,7 @@ public class KafkaEventListener implements EventListener<GenericRecord> {
     }
 
     @Override
-    @KafkaListener(topics = KafkaConstant.TOPIC_ORDER_PAID, groupId = KafkaConstant.GROUP_ID_ORDER)
+    @KafkaListener(topics = KafkaConstant.Consumer.TOPIC_ORDER_PAID, groupId = KafkaConstant.GROUP_ID_ORDER)
     public void handleOrderPaid(GenericRecord orderPaidEvent) {
 
         UUID orderUuid = UUID.fromString(orderPaidEvent.get("orderUuid").toString());

@@ -1,6 +1,0 @@
-
-remettre errorhandler rest
-remettre message
-
-Mettre en place les ErroHandler pour Kafka
-Revoir les profils de dev, prod, etc

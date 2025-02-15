@@ -2,6 +2,15 @@
 # Configuration file
 # ===============================================================
 
+# ---------------------------------------------------------------
+# GENERAL
+# ---------------------------------------------------------------
+server:
+  port: ${app.server.port:8080}
+
+# ---------------------------------------------------------------
+# SPRING
+# ---------------------------------------------------------------
 spring:
   # GENERAL
   application:
@@ -11,28 +20,20 @@ spring:
       mode: never
   # DATASOURCE
   datasource:
-    url: jdbc:h2:mem:testdb
-    driverClassName: org.h2.Driver
-    username: sa
+    url: ${app.datasource.url}
+    driverClassName: ${app.datasource.driver}
+    username: ${app.datasource.username}
+    password: ${app.datasource.password}
   # JPA
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
+    database-platform: ${app.jpa.driver}
     hibernate:
       ddl-auto: none
-    show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
-  # H2
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
   # KAFKA
   kafka:
-    bootstrap-servers: localhost:29092
+    bootstrap-servers: ${app.kafka.bootstrap-servers}
     properties:
-      schema.registry.url: http://localhost:8081
+      schema.registry.url: ${app.schema.registry.url}
     consumer:
       auto-offset-reset: earliest
       key-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
@@ -50,15 +51,26 @@ spring:
       properties:
         retry.backoff.ms: 250
 
+# ---------------------------------------------------------------
 # ACTUATOR
+# ---------------------------------------------------------------
 management:
   endpoints:
     web:
       exposure:
         include: '*'
 
+# ---------------------------------------------------------------
 # SWAGGER UI
+# ---------------------------------------------------------------
 springdoc:
   swagger-ui:
-    enabled: true
-    path: /
+    enabled: ${app.swagger.ui.enabled:false}
+    path: ${app.swagger.ui.path:/}
+
+# ---------------------------------------------------------------
+# LOGGING
+# ---------------------------------------------------------------
+logging:
+  level:
+    com.benjamin.parsy.ksb: ${app.logging.level:info}

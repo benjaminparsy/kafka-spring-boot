@@ -2,7 +2,6 @@ package com.benjamin.parsy.ksb.user.usecase;
 
 import com.benjamin.parsy.ksb.user.entity.event.EventPublisher;
 import com.benjamin.parsy.ksb.user.entity.exception.UserNotFoundException;
-import com.benjamin.parsy.ksb.user.entity.gateway.EventGateway;
 import com.benjamin.parsy.ksb.user.entity.gateway.UserGateway;
 import com.benjamin.parsy.ksb.user.entity.model.User;
 import com.benjamin.parsy.ksb.user.entity.model.event.EventType;
@@ -30,9 +29,6 @@ class ValidatedUserUseCaseTest {
     private UserGateway userGateway;
 
     @Mock
-    private EventGateway eventGateway;
-
-    @Mock
     private EventPublisher eventPublisher;
 
     @BeforeEach
@@ -57,13 +53,7 @@ class ValidatedUserUseCaseTest {
         verify(userGateway, times(1)).existsById(any(UUID.class));
 
         ArgumentCaptor<UserValidatedEvent> eventCaptor = ArgumentCaptor.forClass(UserValidatedEvent.class);
-
-        verify(eventGateway, times(1)).save(any(UserValidatedEvent.class));
-        verify(eventGateway).save(eventCaptor.capture());
-        assertEquals(EventType.USER_VALIDATED, eventCaptor.getValue().getEventType());
-
-        verify(eventPublisher, times(1)).publishUserValidatedEvent(any(UserValidatedEvent.class));
-        verify(eventPublisher).publishUserValidatedEvent(eventCaptor.capture());
+        verify(eventPublisher, times(1)).publishUserValidatedEvent(eventCaptor.capture());
         assertEquals(EventType.USER_VALIDATED, eventCaptor.getValue().getEventType());
 
     }
@@ -86,13 +76,7 @@ class ValidatedUserUseCaseTest {
         verify(userGateway, times(1)).existsById(any(UUID.class));
 
         ArgumentCaptor<OrderFailedEvent> eventCaptor = ArgumentCaptor.forClass(OrderFailedEvent.class);
-
-        verify(eventGateway, times(1)).save(any(OrderFailedEvent.class));
-        verify(eventGateway).save(eventCaptor.capture());
-        assertEquals(EventType.ORDER_FAILED, eventCaptor.getValue().getEventType());
-
-        verify(eventPublisher, times(1)).publishOrderFailedEvent(any(OrderFailedEvent.class));
-        verify(eventPublisher).publishOrderFailedEvent(eventCaptor.capture());
+        verify(eventPublisher, times(1)).publishOrderFailedEvent(eventCaptor.capture());
         assertEquals(EventType.ORDER_FAILED, eventCaptor.getValue().getEventType());
 
     }

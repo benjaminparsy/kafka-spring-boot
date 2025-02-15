@@ -1,7 +1,9 @@
 package com.benjamin.parsy.ksb.order.infrastructure.db.jpa.schema;
 
 import com.benjamin.parsy.ksb.order.entity.model.Order;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.*;
 
 import java.time.OffsetDateTime;
@@ -27,9 +29,8 @@ public class OrderEntity extends BaseEntity {
     @Column(name = "order_date")
     private OffsetDateTime orderDate;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "status")
-    private OrderStatusEnum orderStatusEnum;
+    private String status;
 
     @Column(name = "total_price")
     private double totalPrice;
@@ -38,7 +39,7 @@ public class OrderEntity extends BaseEntity {
         this.uuid = order.getUuid();
         this.userUuid = order.getUserUuid();
         this.orderDate = order.getOrderDate();
-        this.orderStatusEnum = OrderStatusEnum.safeValueOf(order.getStatus().name());
+        this.status = order.getStatus().name();
         this.totalPrice = order.getTotalPrice();
     }
 

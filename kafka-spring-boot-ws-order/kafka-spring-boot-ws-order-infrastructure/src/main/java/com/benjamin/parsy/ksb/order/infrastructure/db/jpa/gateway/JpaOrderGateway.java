@@ -1,4 +1,4 @@
-package com.benjamin.parsy.ksb.order.infrastructure.db.gateway;
+package com.benjamin.parsy.ksb.order.infrastructure.db.jpa.gateway;
 
 import com.benjamin.parsy.ksb.order.entity.exception.OrderNotFoundException;
 import com.benjamin.parsy.ksb.order.entity.gateway.OrderGateway;
@@ -8,7 +8,6 @@ import com.benjamin.parsy.ksb.order.infrastructure.db.jpa.repository.OrderItemRe
 import com.benjamin.parsy.ksb.order.infrastructure.db.jpa.repository.OrderRepository;
 import com.benjamin.parsy.ksb.order.infrastructure.db.jpa.schema.OrderEntity;
 import com.benjamin.parsy.ksb.order.infrastructure.db.jpa.schema.OrderItemEntity;
-import com.benjamin.parsy.ksb.order.infrastructure.db.jpa.schema.OrderStatusEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,10 +40,7 @@ public class JpaOrderGateway implements OrderGateway {
     @Transactional
     @Override
     public void update(Order order) {
-
-        OrderStatusEnum orderStatusEnum = OrderStatusEnum.safeValueOf(order.getStatus().name());
-
-        orderRepository.updateByUuid(orderStatusEnum, order.getTotalPrice(), order.getUuid());
+        orderRepository.updateByUuid(order.getStatus().name(), order.getTotalPrice(), order.getUuid());
     }
 
     @Override
@@ -64,7 +60,7 @@ public class JpaOrderGateway implements OrderGateway {
                 orderEntity.getUuid(),
                 orderEntity.getUserUuid(),
                 orderEntity.getOrderDate(),
-                orderEntity.getOrderStatusEnum().name(),
+                orderEntity.getStatus(),
                 products
         );
     }

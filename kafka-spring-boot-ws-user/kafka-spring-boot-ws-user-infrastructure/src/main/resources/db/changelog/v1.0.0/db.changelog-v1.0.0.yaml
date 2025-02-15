@@ -6,7 +6,3 @@ databaseChangeLog:
   - include:
       file: definition/020-create-table-users.yaml
       relativeToChangelogFile: true
-
-  - include:
-      file: definition/030-create-table-kafka-events.yaml
-      relativeToChangelogFile: true

@@ -10,7 +10,3 @@ databaseChangeLog:
   - include:
       file: definition/030-create-table-order-items.yaml
       relativeToChangelogFile: true
-
-  - include:
-      file: definition/040-create-table-kafka-events.yaml
-      relativeToChangelogFile: true

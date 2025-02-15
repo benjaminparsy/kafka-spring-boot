@@ -45,7 +45,7 @@ public class KafkaEventPublisher implements EventPublisher {
                 orderCreatedEvent.getTotalPrice()
         );
 
-        createdKafkaEventKafkaTemplate.send(KafkaConstant.TOPIC_ORDER_CREATED, orderCreatedKafkaEvent);
+        createdKafkaEventKafkaTemplate.send(KafkaConstant.Producer.TOPIC_ORDER_CREATED, orderCreatedKafkaEvent);
 
     }
 
@@ -56,7 +56,7 @@ public class KafkaEventPublisher implements EventPublisher {
                 orderConfirmedEvent.getOrderUuid().toString()
         );
 
-        confirmedKafkaEventKafkaTemplate.send(KafkaConstant.TOPIC_ORDER_CONFIRMED, orderConfirmedKafkaEvent);
+        confirmedKafkaEventKafkaTemplate.send(KafkaConstant.Producer.TOPIC_ORDER_CONFIRMED, orderConfirmedKafkaEvent);
 
     }
 
@@ -68,7 +68,7 @@ public class KafkaEventPublisher implements EventPublisher {
                 orderCanceledEvent.getCause()
         );
 
-        canceledKafkaEventKafkaTemplate.send(KafkaConstant.TOPIC_ORDER_CANCELED, orderCanceledKafkaEvent);
+        canceledKafkaEventKafkaTemplate.send(KafkaConstant.Producer.TOPIC_ORDER_CANCELED, orderCanceledKafkaEvent);
 
     }
 }

@@ -25,7 +25,7 @@ public class KafkaEventPublisher implements EventPublisher {
                 orderFailedEvent.getCause()
         );
 
-        orderFailedKafkaTemplate.send(KafkaConstant.TOPIC_ORDER_FAILED, orderFailedKafkaEvent);
+        orderFailedKafkaTemplate.send(KafkaConstant.Producer.TOPIC_ORDER_FAILED, orderFailedKafkaEvent);
 
     }
 
@@ -36,7 +36,7 @@ public class KafkaEventPublisher implements EventPublisher {
                 userValidatedEvent.getOrderUuid().toString()
         );
 
-        userValidatedKafkaTemplate.send(KafkaConstant.TOPIC_USER_VALIDATED, userValidatedKafkaEvent);
+        userValidatedKafkaTemplate.send(KafkaConstant.Producer.TOPIC_USER_VALIDATED, userValidatedKafkaEvent);
 
     }
 

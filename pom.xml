@@ -18,7 +18,6 @@
     <description>Technology watch project on kafka with Spring Boot</description>
 
     <modules>
-        <module>kafka-spring-boot-shared</module>
         <module>kafka-spring-boot-ws-order</module>
         <module>kafka-spring-boot-ws-user</module>
     </modules>

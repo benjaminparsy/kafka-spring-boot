@@ -1,0 +1,32 @@
+databaseChangeLog:
+  -  changeSet:
+       id: 030-create-table-products.yaml
+       author: benjamin.parsy
+       changes:
+         -  createTable:
+              schemaName: app
+              tableName: products
+              columns:
+                -  column:
+                     name: id
+                     type: int
+                     autoIncrement: true
+                     constraints:
+                       primaryKey: true
+                       nullable: false
+                - column:
+                    name: uuid
+                    type: uuid
+                    constraints:
+                      nullable: false
+                      unique: true
+                - column:
+                    name: name
+                    type: varchar(500)
+                    constraints:
+                      nullable: false
+                - column:
+                    name: price
+                    type: decimal(10, 2)
+                    constraints:
+                      nullable: false

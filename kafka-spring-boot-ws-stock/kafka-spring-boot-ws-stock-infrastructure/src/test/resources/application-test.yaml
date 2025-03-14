@@ -1,0 +1,32 @@
+# ===============================================================
+# Configuration file
+# ===============================================================
+
+# ---------------------------------------------------------------
+# APPLICATION
+# ---------------------------------------------------------------
+app:
+  datasource:
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password: password
+    driver: org.h2.Driver
+  jpa:
+    driver: org.hibernate.dialect.H2Dialect
+  kafka:
+    bootstrap-servers: ${spring.embedded.kafka.brokers}
+  schema:
+    registry:
+      url: "mock://schema-registry"
+  logging:
+    level: debug
+
+# ---------------------------------------------------------------
+# SPRING
+# ---------------------------------------------------------------
+spring:
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true

@@ -21,6 +21,7 @@
         <module>kafka-spring-boot-avro</module>
         <module>kafka-spring-boot-ws-order</module>
         <module>kafka-spring-boot-ws-user</module>
+        <module>kafka-spring-boot-ws-stock</module>
         <module>kafka-spring-boot-ws-analytics</module>
     </modules>
 

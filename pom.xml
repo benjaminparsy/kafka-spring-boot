@@ -18,6 +18,7 @@
     <description>Technology watch project on kafka with Spring Boot</description>
 
     <modules>
+        <module>kafka-spring-boot-avro</module>
         <module>kafka-spring-boot-ws-order</module>
         <module>kafka-spring-boot-ws-user</module>
         <module>kafka-spring-boot-ws-analytics</module>
@@ -36,6 +37,8 @@
         <awaitility.version>3.1.6</awaitility.version>
         <avro.version>1.12.0</avro.version>
         <kafka.avro.serializer.version>7.8.0</kafka.avro.serializer.version>
+        <swagger.annotations.version>2.2.28</swagger.annotations.version>
+
 
         <!-- Plugins version -->
         <openapi.generator.maven.plugin>7.8.0</openapi.generator.maven.plugin>
@@ -162,6 +165,11 @@
                 <groupId>org.springdoc</groupId>
                 <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
                 <version>${springdoc.openapi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.swagger.core.v3</groupId>
+                <artifactId>swagger-annotations</artifactId>
+                <version>${swagger.annotations.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.openapitools</groupId>

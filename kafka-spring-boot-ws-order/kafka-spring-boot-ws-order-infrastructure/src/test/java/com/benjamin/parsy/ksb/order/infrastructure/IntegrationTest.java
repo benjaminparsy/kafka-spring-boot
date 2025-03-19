@@ -1,6 +1,6 @@
-package com.benjamin.parsy.ksb.user.infrastructure.db;
+package com.benjamin.parsy.ksb.order.infrastructure;
 
-import com.benjamin.parsy.ksb.user.infrastructure.configuration.KafkaConstant;
+import com.benjamin.parsy.ksb.order.infrastructure.event.kafka.KafkaConstant;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,17 +12,18 @@ import java.util.concurrent.TimeUnit;
 
 import static org.awaitility.Awaitility.await;
 
-@ActiveProfiles("test")
+@ActiveProfiles("it")
 @EmbeddedKafka(
         partitions = 1,
         topics = {
-                KafkaConstant.Producer.TOPIC_ORDER_FAILED,
-                KafkaConstant.Producer.TOPIC_USER_VALIDATED,
+                KafkaConstant.Producer.TOPIC_ORDER_CANCELED,
+                KafkaConstant.Producer.TOPIC_ORDER_CONFIRMED,
+                KafkaConstant.Producer.TOPIC_ORDER_CREATED
         },
         controlledShutdown = true
 )
 @Slf4j
-public abstract class ITest {
+public abstract class IntegrationTest {
 
     @Autowired
     private EmbeddedKafkaBroker embeddedKafka;

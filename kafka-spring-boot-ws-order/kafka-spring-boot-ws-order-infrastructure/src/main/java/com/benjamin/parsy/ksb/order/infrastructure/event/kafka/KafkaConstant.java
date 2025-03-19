@@ -1,4 +1,4 @@
-package com.benjamin.parsy.ksb.order.infrastructure.configuration;
+package com.benjamin.parsy.ksb.order.infrastructure.event.kafka;
 
 public final class KafkaConstant {
 

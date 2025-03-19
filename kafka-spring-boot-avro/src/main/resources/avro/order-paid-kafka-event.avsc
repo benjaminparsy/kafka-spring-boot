@@ -1,0 +1,11 @@
+{
+  "namespace": "com.benjamin.parsy.ksb.avro.dto",
+  "type": "record",
+  "name": "OrderPaidKafkaEvent",
+  "fields": [
+    {
+      "name": "orderUuid",
+      "type": "string"
+    }
+  ]
+}

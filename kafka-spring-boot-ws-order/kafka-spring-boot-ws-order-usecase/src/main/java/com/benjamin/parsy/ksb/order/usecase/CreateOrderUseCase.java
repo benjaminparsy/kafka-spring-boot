@@ -1,6 +1,6 @@
 package com.benjamin.parsy.ksb.order.usecase;
 
-import com.benjamin.parsy.ksb.order.entity.event.EventPublisher;
+import com.benjamin.parsy.ksb.order.entity.gateway.EventGateway;
 import com.benjamin.parsy.ksb.order.entity.gateway.OrderGateway;
 import com.benjamin.parsy.ksb.order.entity.model.DesiredProduct;
 import com.benjamin.parsy.ksb.order.entity.model.Order;
@@ -15,7 +15,7 @@ import java.util.UUID;
 public class CreateOrderUseCase {
 
     private final OrderGateway orderGateway;
-    private final EventPublisher eventPublisher;
+    private final EventGateway eventGateway;
 
     public Order createOrder(UUID userUuid, List<IDesiredProductPublicData> products) {
 
@@ -29,7 +29,7 @@ public class CreateOrderUseCase {
 
         // 2. Publish an order creation event
         OrderCreatedEvent orderCreatedEvent = new OrderCreatedEvent(order);
-        eventPublisher.publishOrderCreatedEvent(orderCreatedEvent);
+        eventGateway.publish(orderCreatedEvent);
 
         return order;
     }

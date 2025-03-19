@@ -1,5 +1,5 @@
 {
-  "namespace": "com.benjamin.parsy.ksb.order.infrastructure.event.kafka.dto",
+  "namespace": "com.benjamin.parsy.ksb.avro.dto",
   "type": "record",
   "name": "OrderCreatedKafkaEvent",
   "fields": [

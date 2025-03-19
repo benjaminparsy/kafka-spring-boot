@@ -1,7 +1,7 @@
 package com.benjamin.parsy.ksb.user.usecase;
 
-import com.benjamin.parsy.ksb.user.entity.event.EventPublisher;
 import com.benjamin.parsy.ksb.user.entity.exception.UserNotFoundException;
+import com.benjamin.parsy.ksb.user.entity.gateway.EventGateway;
 import com.benjamin.parsy.ksb.user.entity.gateway.UserGateway;
 import com.benjamin.parsy.ksb.user.entity.model.event.OrderFailedEvent;
 import com.benjamin.parsy.ksb.user.entity.model.event.UserValidatedEvent;
@@ -13,7 +13,7 @@ import java.util.UUID;
 public class ValidatedUserUseCase {
 
     private final UserGateway userGateway;
-    private final EventPublisher eventPublisher;
+    private final EventGateway eventGateway;
 
     /**
      * To validate a user for an order
@@ -28,12 +28,12 @@ public class ValidatedUserUseCase {
             userGateway.existsById(userUuid);
 
             UserValidatedEvent userValidatedEvent = new UserValidatedEvent(orderUuid);
-            eventPublisher.publishUserValidatedEvent(userValidatedEvent);
+            eventGateway.publish(userValidatedEvent);
 
         } catch (UserNotFoundException e) {
 
             OrderFailedEvent orderFailedEvent = new OrderFailedEvent(orderUuid, e.getMessage());
-            eventPublisher.publishOrderFailedEvent(orderFailedEvent);
+            eventGateway.publish(orderFailedEvent);
 
         }
 

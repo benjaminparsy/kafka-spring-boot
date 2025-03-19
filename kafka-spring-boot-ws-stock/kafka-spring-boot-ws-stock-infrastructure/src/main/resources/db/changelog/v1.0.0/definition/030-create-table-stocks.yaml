@@ -1,0 +1,30 @@
+databaseChangeLog:
+  -  changeSet:
+       id: 030-create-table-stocks.yaml
+       author: benjamin.parsy
+       changes:
+         -  createTable:
+              schemaName: app
+              tableName: stocks
+              columns:
+                -  column:
+                     name: id
+                     type: int
+                     autoIncrement: true
+                     constraints:
+                       primaryKey: true
+                       nullable: false
+                - column:
+                    name: quantity
+                    type: int
+                    constraints:
+                      nullable: false
+                - column:
+                    name: product_id
+                    type: int
+                    constraints:
+                      nullable: false
+                      referencedTableSchemaName: app
+                      referencedTableName: products
+                      referencedColumnNames: id
+                      foreignKeyName: fk_products_stocks

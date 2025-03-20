@@ -1,0 +1,64 @@
+# ===============================================================
+# Configuration file
+# ===============================================================
+
+# ---------------------------------------------------------------
+# GENERAL
+# ---------------------------------------------------------------
+server:
+  port: ${app.server.port:8080}
+
+# ---------------------------------------------------------------
+# SPRING
+# ---------------------------------------------------------------
+spring:
+  # GENERAL
+  application:
+    name: runnetic-ws-analytics
+  # ELASTICSEARCH
+  elasticsearch:
+    uris: ${app.elasticsearch.uris}
+    username: ${app.elasticsearch.username}
+    password: ${app.elasticsearch.password}
+  # KAFKA
+  kafka:
+    bootstrap-servers: ${app.kafka.bootstrap-servers}
+    properties:
+      schema.registry.url: ${app.schema.registry.url}
+    consumer:
+      group-id: analytics-group
+      auto-offset-reset: earliest
+      key-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+      properties:
+        specific.avro.reader: false
+        spring.deserializer.value.delegate.class: io.confluent.kafka.serializers.KafkaAvroDeserializer
+        spring.deserializer.key.delegate.class: org.apache.kafka.common.serialization.StringDeserializer
+        spring.json.trusted.packages: "*"
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+      acks: all
+      retries: 50
+      properties:
+        retry.backoff.ms: 250
+
+# ---------------------------------------------------------------
+# KAFKA SPECIFIC
+# ---------------------------------------------------------------
+kafka:
+  topics:
+    consumer:
+      order-created: order-created
+      order-canceled: order-canceled
+      order-failed: order-failed
+      order-paid: order-paid
+      order-confirmed: order-confirmed
+
+# ---------------------------------------------------------------
+# LOGGING
+# ---------------------------------------------------------------
+logging:
+  level:
+    com.benjamin.parsy.runnetic: ${app.logging.level:info}
+    org.springframework: info

@@ -1,0 +1,44 @@
+version: '3.9'
+
+name: runnetic-ws-order
+
+services:
+  db:
+    image: postgres:14.1-alpine
+    container_name: postgres-ws-order
+    networks:
+      - runnetic-ws-order
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: order
+
+  ws-order:
+    image: 'runnetic/ws-order:latest'
+    build:
+      context: .
+    container_name: ws-order
+    depends_on:
+      - db
+    networks:
+      - kafka_network
+      - runnetic-ws-order
+    ports:
+      - "9001:8080"
+    environment:
+      app.datasource.url: jdbc:postgresql://postgres-ws-order:5432/order
+      app.datasource.driver: org.postgresql.Driver
+      app.datasource.username: postgres
+      app.datasource.password: postgres
+      app.jpa.driver: org.hibernate.dialect.PostgreSQLDialect
+      app.kafka.bootstrap-servers: kafka:9092
+      app.schema.registry.url: http://schema-registry:8081
+      app.server.port: 8080
+      app.logging.level: info
+      app.swagger.ui.enabled: true
+
+networks:
+  kafka_network:
+    external: true
+  runnetic-ws-order:
+    name: runnetic-ws-order

@@ -1,0 +1,17 @@
+{
+  "namespace": "com.benjamin.parsy.runnetic.avro.dto",
+  "type": "record",
+  "name": "OrderFailedKafkaEvent",
+  "fields": [
+    {
+      "name": "orderUuid",
+      "type": "string",
+      "avro.java.string": "String"
+    },
+    {
+      "name": "cause",
+      "type": "string",
+      "avro.java.string": "String"
+    }
+  ]
+}

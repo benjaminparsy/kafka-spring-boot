@@ -11,18 +11,18 @@
     </parent>
 
     <groupId>com.benjamin.parsy</groupId>
-    <artifactId>kafka-spring-boot</artifactId>
+    <artifactId>runnetic</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>KSB - Parent</name>
+    <name>Runnetic - Parent</name>
     <description>Technology watch project on kafka with Spring Boot</description>
 
     <modules>
-        <module>kafka-spring-boot-avro</module>
-        <module>kafka-spring-boot-ws-order</module>
-        <module>kafka-spring-boot-ws-user</module>
-        <module>kafka-spring-boot-ws-stock</module>
-        <module>kafka-spring-boot-ws-analytics</module>
+        <module>runnetic-avro</module>
+        <module>runnetic-ws-order</module>
+        <module>runnetic-ws-user</module>
+        <module>runnetic-ws-stock</module>
+        <module>runnetic-ws-analytics</module>
     </modules>
 
     <properties>
@@ -46,7 +46,7 @@
         <avro.maven.plugin>1.11.0</avro.maven.plugin>
 
         <!-- Custom properties -->
-        <base.package>com.benjamin.parsy.ksb</base.package>
+        <base.package>com.benjamin.parsy.runnetic</base.package>
     </properties>
 
     <repositories>

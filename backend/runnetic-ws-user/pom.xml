@@ -6,11 +6,11 @@
     <parent>
         <groupId>com.benjamin.parsy</groupId>
         <artifactId>runnetic</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.0</version>
     </parent>
 
     <artifactId>runnetic-ws-user</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <packaging>pom</packaging>
     <name>Runnetic - WS User</name>
     <description>Technology watch project on kafka with Spring Boot - Webservice User</description>

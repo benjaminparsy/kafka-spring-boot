@@ -6,11 +6,11 @@
     <parent>
         <groupId>com.benjamin.parsy</groupId>
         <artifactId>runnetic-ws-order</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.0</version>
     </parent>
 
     <artifactId>runnetic-ws-order-infrastructure</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>Runnetic - WS Order - Infrastructure</name>
     <description>Technology watch project on kafka with Spring Boot - Webservice Order - Infrastructure</description>
 

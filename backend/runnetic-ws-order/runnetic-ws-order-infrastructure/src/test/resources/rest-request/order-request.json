@@ -1,0 +1,15 @@
+{
+  "userUuid": "%s",
+  "products": [
+    {
+      "productUuid": "%s",
+      "quantity": "%s",
+      "price": "%s"
+    },
+    {
+      "productUuid": "%s",
+      "quantity": "%s",
+      "price": "%s"
+    }
+  ]
+}

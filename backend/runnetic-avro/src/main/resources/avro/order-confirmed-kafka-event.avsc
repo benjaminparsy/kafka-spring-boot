@@ -1,0 +1,11 @@
+{
+  "namespace": "com.benjamin.parsy.runnetic.avro.dto",
+  "type": "record",
+  "name": "OrderConfirmedKafkaEvent",
+  "fields": [
+    {
+      "name": "orderUuid",
+      "type": "string"
+    }
+  ]
+}

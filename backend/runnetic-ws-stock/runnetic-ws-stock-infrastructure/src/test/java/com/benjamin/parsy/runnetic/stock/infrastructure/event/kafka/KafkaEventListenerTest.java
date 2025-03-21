@@ -3,7 +3,7 @@ package com.benjamin.parsy.runnetic.stock.infrastructure.event.kafka;
 import com.benjamin.parsy.runnetic.avro.dto.DesiredProductKafkaEvent;
 import com.benjamin.parsy.runnetic.avro.dto.OrderCreatedKafkaEvent;
 import com.benjamin.parsy.runnetic.stock.usecase.ReservedStockUseCase;
-import com.benjamin.parsy.runnetic.stock.usecase.dto.IDesiredProductPublicData;
+import com.benjamin.parsy.runnetic.stock.usecase.publicdata.IDesiredProductPublicData;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;

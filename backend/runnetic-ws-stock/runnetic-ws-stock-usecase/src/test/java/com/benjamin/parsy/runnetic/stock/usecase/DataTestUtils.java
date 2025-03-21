@@ -1,6 +1,6 @@
 package com.benjamin.parsy.runnetic.stock.usecase;
 
-import com.benjamin.parsy.runnetic.stock.usecase.dto.TestDesiredProductPublicData;
+import com.benjamin.parsy.runnetic.stock.usecase.publicdata.TestDesiredProductPublicData;
 import org.apache.commons.lang3.RandomUtils;
 
 import java.util.List;

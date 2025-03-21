@@ -2,7 +2,7 @@ package com.benjamin.parsy.runnetic.order.usecase;
 
 import com.benjamin.parsy.runnetic.order.entity.model.DesiredProduct;
 import com.benjamin.parsy.runnetic.order.entity.model.Order;
-import com.benjamin.parsy.runnetic.order.usecase.dto.IDesiredProductPublicData;
+import com.benjamin.parsy.runnetic.order.usecase.publicdata.IDesiredProductPublicData;
 import org.apache.commons.lang3.RandomUtils;
 
 import java.util.List;

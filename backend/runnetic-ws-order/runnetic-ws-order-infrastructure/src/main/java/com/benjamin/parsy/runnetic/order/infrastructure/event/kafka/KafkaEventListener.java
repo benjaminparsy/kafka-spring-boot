@@ -2,7 +2,7 @@ package com.benjamin.parsy.runnetic.order.infrastructure.event.kafka;
 
 import com.benjamin.parsy.runnetic.avro.dto.OrderCanceledKafkaEvent;
 import com.benjamin.parsy.runnetic.avro.dto.OrderPaidKafkaEvent;
-import com.benjamin.parsy.runnetic.order.entity.exception.OrderNotFoundException;
+import com.benjamin.parsy.runnetic.order.usecase.exception.OrderNotFoundException;
 import com.benjamin.parsy.runnetic.order.usecase.CancelOrderUseCase;
 import com.benjamin.parsy.runnetic.order.usecase.ConfirmedOrderUseCase;
 import lombok.RequiredArgsConstructor;

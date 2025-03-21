@@ -1,11 +1,11 @@
 package com.benjamin.parsy.runnetic.order.usecase;
 
-import com.benjamin.parsy.runnetic.order.entity.gateway.EventGateway;
-import com.benjamin.parsy.runnetic.order.entity.gateway.OrderGateway;
+import com.benjamin.parsy.runnetic.order.usecase.port.EventPort;
+import com.benjamin.parsy.runnetic.order.usecase.port.OrderPort;
 import com.benjamin.parsy.runnetic.order.entity.model.DesiredProduct;
 import com.benjamin.parsy.runnetic.order.entity.model.Order;
 import com.benjamin.parsy.runnetic.order.entity.model.event.OrderCreatedEvent;
-import com.benjamin.parsy.runnetic.order.usecase.dto.IDesiredProductPublicData;
+import com.benjamin.parsy.runnetic.order.usecase.publicdata.IDesiredProductPublicData;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
@@ -14,8 +14,8 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class CreateOrderUseCase {
 
-    private final OrderGateway orderGateway;
-    private final EventGateway eventGateway;
+    private final OrderPort orderPort;
+    private final EventPort eventPort;
 
     public Order createOrder(UUID userUuid, List<IDesiredProductPublicData> products) {
 
@@ -25,11 +25,11 @@ public class CreateOrderUseCase {
                 .toList();
 
         Order order = new Order(userUuid, desiredProducts);
-        order = orderGateway.save(order);
+        order = orderPort.save(order);
 
         // 2. Publish an order creation event
         OrderCreatedEvent orderCreatedEvent = new OrderCreatedEvent(order);
-        eventGateway.publish(orderCreatedEvent);
+        eventPort.publish(orderCreatedEvent);
 
         return order;
     }

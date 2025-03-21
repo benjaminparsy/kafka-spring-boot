@@ -1,11 +1,11 @@
 package com.benjamin.parsy.runnetic.order.usecase;
 
-import com.benjamin.parsy.runnetic.order.entity.gateway.EventGateway;
-import com.benjamin.parsy.runnetic.order.entity.gateway.OrderGateway;
+import com.benjamin.parsy.runnetic.order.usecase.port.EventPort;
+import com.benjamin.parsy.runnetic.order.usecase.port.OrderPort;
 import com.benjamin.parsy.runnetic.order.entity.model.Order;
 import com.benjamin.parsy.runnetic.order.entity.model.OrderStatus;
 import com.benjamin.parsy.runnetic.order.entity.model.event.OrderCreatedEvent;
-import com.benjamin.parsy.runnetic.order.usecase.dto.IDesiredProductPublicData;
+import com.benjamin.parsy.runnetic.order.usecase.publicdata.IDesiredProductPublicData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,10 +29,10 @@ class CreateOrderUseCaseTest {
     private CreateOrderUseCase createOrderUseCase;
 
     @Mock
-    private EventGateway eventGateway;
+    private EventPort eventPort;
 
     @Mock
-    private OrderGateway orderGateway;
+    private OrderPort orderPort;
 
     @BeforeEach
     void setUp() {
@@ -51,7 +51,7 @@ class CreateOrderUseCaseTest {
                 DataTestUtils.createDesiredProductPublicData()
         );
 
-        when(orderGateway.save(any(Order.class)))
+        when(orderPort.save(any(Order.class)))
                 .thenAnswer(i -> i.getArgument(0));
 
         // When
@@ -67,11 +67,11 @@ class CreateOrderUseCaseTest {
         assertTrue(order.getTotalPrice() > 0);
 
         // Check order gateway
-        verify(orderGateway, times(1)).save(any(Order.class));
+        verify(orderPort, times(1)).save(any(Order.class));
 
         // Check order event publisher
         ArgumentCaptor<OrderCreatedEvent> orderEventCaptor = ArgumentCaptor.forClass(OrderCreatedEvent.class);
-        verify(eventGateway, times(1)).publish(orderEventCaptor.capture());
+        verify(eventPort, times(1)).publish(orderEventCaptor.capture());
         assertEquals(order.getUuid(), orderEventCaptor.getValue().getOrderUuid());
 
     }

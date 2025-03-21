@@ -1,12 +1,12 @@
 package com.benjamin.parsy.runnetic.stock.usecase;
 
-import com.benjamin.parsy.runnetic.stock.entity.exception.StockNotFoundException;
-import com.benjamin.parsy.runnetic.stock.entity.gateway.EventGateway;
-import com.benjamin.parsy.runnetic.stock.entity.gateway.StockGateway;
+import com.benjamin.parsy.runnetic.stock.usecase.exception.StockNotFoundException;
+import com.benjamin.parsy.runnetic.stock.usecase.port.EventPort;
+import com.benjamin.parsy.runnetic.stock.usecase.port.StockPort;
 import com.benjamin.parsy.runnetic.stock.entity.model.Stock;
 import com.benjamin.parsy.runnetic.stock.entity.model.event.OrderFailedEvent;
 import com.benjamin.parsy.runnetic.stock.entity.model.event.StockReservedEvent;
-import com.benjamin.parsy.runnetic.stock.usecase.dto.IDesiredProductPublicData;
+import com.benjamin.parsy.runnetic.stock.usecase.publicdata.IDesiredProductPublicData;
 import com.benjamin.parsy.runnetic.stock.usecase.exception.InsufficientStockException;
 import lombok.RequiredArgsConstructor;
 
@@ -16,8 +16,8 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class ReservedStockUseCase {
 
-    private final StockGateway stockGateway;
-    private final EventGateway eventGateway;
+    private final StockPort stockPort;
+    private final EventPort eventPort;
 
     public void reservedStock(UUID orderUuid, List<IDesiredProductPublicData> desiredProducts) {
 
@@ -34,7 +34,7 @@ public class ReservedStockUseCase {
 
         for (IDesiredProductPublicData desiredProduct : desiredProducts) {
 
-            Stock stock = stockGateway.findByProductUuid(desiredProduct.productUuid());
+            Stock stock = stockPort.findByProductUuid(desiredProduct.productUuid());
             int desiredQuantity = desiredProduct.quantity();
 
             if (!stock.isEnoughQuantity(desiredQuantity)) {
@@ -42,7 +42,7 @@ public class ReservedStockUseCase {
             }
 
             stock.decreaseQuantity(desiredQuantity);
-            stockGateway.update(stock);
+            stockPort.update(stock);
 
         }
 
@@ -50,12 +50,12 @@ public class ReservedStockUseCase {
 
     private void publishStockReservedEvent(UUID orderUuid) {
         StockReservedEvent event = new StockReservedEvent(orderUuid);
-        eventGateway.publish(event);
+        eventPort.publish(event);
     }
 
     private void handleFailure(UUID orderUuid, Exception e) {
         OrderFailedEvent event = new OrderFailedEvent(orderUuid, e.getMessage());
-        eventGateway.publish(event);
+        eventPort.publish(event);
     }
 
 }

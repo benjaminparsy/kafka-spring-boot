@@ -1,13 +1,13 @@
 package com.benjamin.parsy.runnetic.stock.usecase;
 
-import com.benjamin.parsy.runnetic.stock.entity.exception.StockNotFoundException;
-import com.benjamin.parsy.runnetic.stock.entity.gateway.EventGateway;
-import com.benjamin.parsy.runnetic.stock.entity.gateway.StockGateway;
+import com.benjamin.parsy.runnetic.stock.usecase.exception.StockNotFoundException;
+import com.benjamin.parsy.runnetic.stock.usecase.port.EventPort;
+import com.benjamin.parsy.runnetic.stock.usecase.port.StockPort;
 import com.benjamin.parsy.runnetic.stock.entity.model.Product;
 import com.benjamin.parsy.runnetic.stock.entity.model.Stock;
 import com.benjamin.parsy.runnetic.stock.entity.model.event.EventType;
 import com.benjamin.parsy.runnetic.stock.entity.model.event.StockReservedEvent;
-import com.benjamin.parsy.runnetic.stock.usecase.dto.TestDesiredProductPublicData;
+import com.benjamin.parsy.runnetic.stock.usecase.publicdata.TestDesiredProductPublicData;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -27,10 +27,10 @@ class ReservedStockUseCaseTest {
     private ReservedStockUseCase reservedStockUseCase;
 
     @Mock
-    private StockGateway stockGateway;
+    private StockPort stockPort;
 
     @Mock
-    private EventGateway eventGateway;
+    private EventPort eventPort;
 
     @BeforeEach
     void setUp() {
@@ -46,7 +46,7 @@ class ReservedStockUseCaseTest {
         List<TestDesiredProductPublicData> desiredProducts = DataTestUtils.createDesiredProducts();
 
         for (TestDesiredProductPublicData desiredProduct : desiredProducts) {
-            when(stockGateway.findByProductUuid(desiredProduct.productUuid()))
+            when(stockPort.findByProductUuid(desiredProduct.productUuid()))
                     .thenReturn(new Stock(UUID.randomUUID(), new Product(desiredProduct.productUuid(), "name", 100.00), desiredProduct.quantity()));
         }
 
@@ -55,15 +55,15 @@ class ReservedStockUseCaseTest {
 
         // Then
         // Check stock gateway call
-        verify(stockGateway, times(3)).findByProductUuid(any(UUID.class));
+        verify(stockPort, times(3)).findByProductUuid(any(UUID.class));
 
         ArgumentCaptor<Stock> stockCaptor = ArgumentCaptor.forClass(Stock.class);
-        verify(stockGateway, times(3)).update(stockCaptor.capture());
+        verify(stockPort, times(3)).update(stockCaptor.capture());
         assertEquals(0, stockCaptor.getValue().getQuantity());
 
         // Check event
         ArgumentCaptor<StockReservedEvent> eventCaptor = ArgumentCaptor.forClass(StockReservedEvent.class);
-        verify(eventGateway, times(1)).publish(eventCaptor.capture());
+        verify(eventPort, times(1)).publish(eventCaptor.capture());
         assertEquals(EventType.STOCK_RESERVED, eventCaptor.getValue().getEventType());
 
 

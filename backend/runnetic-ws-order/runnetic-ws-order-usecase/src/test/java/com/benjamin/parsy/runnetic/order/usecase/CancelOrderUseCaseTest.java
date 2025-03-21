@@ -1,8 +1,8 @@
 package com.benjamin.parsy.runnetic.order.usecase;
 
-import com.benjamin.parsy.runnetic.order.entity.exception.OrderNotFoundException;
-import com.benjamin.parsy.runnetic.order.entity.gateway.EventGateway;
-import com.benjamin.parsy.runnetic.order.entity.gateway.OrderGateway;
+import com.benjamin.parsy.runnetic.order.usecase.exception.OrderNotFoundException;
+import com.benjamin.parsy.runnetic.order.usecase.port.EventPort;
+import com.benjamin.parsy.runnetic.order.usecase.port.OrderPort;
 import com.benjamin.parsy.runnetic.order.entity.model.Order;
 import com.benjamin.parsy.runnetic.order.entity.model.OrderStatus;
 import com.benjamin.parsy.runnetic.order.entity.model.event.OrderCanceledEvent;
@@ -23,10 +23,10 @@ class CancelOrderUseCaseTest {
     private CancelOrderUseCase cancelOrderUseCase;
 
     @Mock
-    private OrderGateway orderGateway;
+    private OrderPort orderPort;
 
     @Mock
-    private EventGateway eventGateway;
+    private EventPort eventPort;
 
     @BeforeEach
     void setUp() {
@@ -40,7 +40,7 @@ class CancelOrderUseCaseTest {
         String cause = "user invalid";
         Order order = DataTestUtils.createOrder();
 
-        when(orderGateway.findById(order.getUuid()))
+        when(orderPort.findById(order.getUuid()))
                 .thenReturn(order);
 
         // When
@@ -49,12 +49,12 @@ class CancelOrderUseCaseTest {
         // Then
         // Check order gateway
         ArgumentCaptor<Order> orderCaptor = ArgumentCaptor.forClass(Order.class);
-        verify(orderGateway, times(1)).update(orderCaptor.capture());
+        verify(orderPort, times(1)).update(orderCaptor.capture());
         assertEquals(OrderStatus.CANCELED, orderCaptor.getValue().getStatus());
 
         // Check order event publisher
         ArgumentCaptor<OrderCanceledEvent> orderCanceledEventCaptor = ArgumentCaptor.forClass(OrderCanceledEvent.class);
-        verify(eventGateway, times(1)).publish(orderCanceledEventCaptor.capture());
+        verify(eventPort, times(1)).publish(orderCanceledEventCaptor.capture());
         assertEquals(order.getUuid(), orderCanceledEventCaptor.getValue().getOrderUuid());
 
     }

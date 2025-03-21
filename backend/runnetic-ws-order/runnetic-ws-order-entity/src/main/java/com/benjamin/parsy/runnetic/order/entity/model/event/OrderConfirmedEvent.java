@@ -1,11 +1,17 @@
 package com.benjamin.parsy.runnetic.order.entity.model.event;
 
+import lombok.Getter;
+
 import java.util.UUID;
 
-public class OrderConfirmedEvent extends OrderEvent {
+@Getter
+public class OrderConfirmedEvent extends Event {
+
+    private final UUID orderUuid;
 
     public OrderConfirmedEvent(UUID orderUuid) {
-        super(EventType.ORDER_CONFIRMED, orderUuid);
+        super(EventType.ORDER_CONFIRMED);
+        this.orderUuid = orderUuid;
     }
 
 }

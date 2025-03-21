@@ -3,7 +3,7 @@ package com.benjamin.parsy.runnetic.order.infrastructure.controller.rest;
 import com.benjamin.parsy.runnetic.order.entity.model.OrderStatus;
 import com.benjamin.parsy.runnetic.order.infrastructure.IntegrationTest;
 import com.benjamin.parsy.runnetic.order.infrastructure.controller.rest.dto.ResponseOrderApiDto;
-import com.benjamin.parsy.runnetic.order.infrastructure.shared.JsonHelper;
+import com.benjamin.parsy.runnetic.order.infrastructure.utils.JsonUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -57,7 +57,7 @@ class OrderRestControllerTest extends IntegrationTest {
                 .getContentAsString();
 
         // Then
-        ResponseOrderApiDto body = JsonHelper.toEntity(jsonResult, ResponseOrderApiDto.class);
+        ResponseOrderApiDto body = JsonUtils.toEntity(jsonResult, ResponseOrderApiDto.class);
 
         assertNotNull(body.getOrderUuid());
         assertNotNull(body.getOrderDate());

@@ -14,7 +14,7 @@ server:
 spring:
   # GENERAL
   application:
-    name: kafka-spring-boot-ws-stock
+    name: runnetic-ws-stock
   sql:
     init:
       mode: never

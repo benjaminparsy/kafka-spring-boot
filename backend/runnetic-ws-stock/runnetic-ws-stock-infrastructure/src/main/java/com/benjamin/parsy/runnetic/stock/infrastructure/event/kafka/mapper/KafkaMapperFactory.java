@@ -1,7 +1,7 @@
 package com.benjamin.parsy.runnetic.stock.infrastructure.event.kafka.mapper;
 
 import com.benjamin.parsy.runnetic.stock.entity.model.event.EventType;
-import com.benjamin.parsy.runnetic.stock.infrastructure.shared.ClassNameUtils;
+import com.benjamin.parsy.runnetic.stock.infrastructure.utils.ClassNameUtils;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;

@@ -14,7 +14,7 @@ server:
 spring:
   # GENERAL
   application:
-    name: kafka-spring-boot-ws-user
+    name: runnetic-ws-user
   sql:
     init:
       mode: never

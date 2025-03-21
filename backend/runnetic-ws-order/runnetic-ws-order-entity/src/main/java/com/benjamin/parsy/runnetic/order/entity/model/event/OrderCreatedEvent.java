@@ -10,8 +10,9 @@ import java.util.List;
 import java.util.UUID;
 
 @Getter
-public class OrderCreatedEvent extends OrderEvent {
+public class OrderCreatedEvent extends Event {
 
+    private final UUID orderUuid;
     private final UUID userUuid;
     private final OffsetDateTime orderDate;
     private final OrderStatus status;
@@ -19,7 +20,8 @@ public class OrderCreatedEvent extends OrderEvent {
     private final double totalPrice;
 
     public OrderCreatedEvent(Order order) {
-        super(EventType.ORDER_CREATED, order.getUuid());
+        super(EventType.ORDER_CREATED);
+        this.orderUuid = order.getUuid();
         this.userUuid = order.getUserUuid();
         this.orderDate = order.getOrderDate();
         this.status = order.getStatus();

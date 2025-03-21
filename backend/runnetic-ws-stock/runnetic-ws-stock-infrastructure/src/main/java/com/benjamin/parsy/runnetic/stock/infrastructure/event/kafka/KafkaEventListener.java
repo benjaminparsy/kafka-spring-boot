@@ -3,7 +3,7 @@ package com.benjamin.parsy.runnetic.stock.infrastructure.event.kafka;
 import com.benjamin.parsy.runnetic.avro.dto.DesiredProductKafkaEvent;
 import com.benjamin.parsy.runnetic.avro.dto.OrderCreatedKafkaEvent;
 import com.benjamin.parsy.runnetic.stock.infrastructure.configuration.KafkaConstant;
-import com.benjamin.parsy.runnetic.stock.infrastructure.dto.DesiredProductPublicData;
+import com.benjamin.parsy.runnetic.stock.infrastructure.publicdata.DesiredProductPublicData;
 import com.benjamin.parsy.runnetic.stock.usecase.ReservedStockUseCase;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

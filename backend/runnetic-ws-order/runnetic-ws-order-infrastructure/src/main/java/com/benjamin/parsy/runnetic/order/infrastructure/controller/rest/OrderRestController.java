@@ -1,9 +1,9 @@
 package com.benjamin.parsy.runnetic.order.infrastructure.controller.rest;
 
 import com.benjamin.parsy.runnetic.order.entity.model.Order;
-import com.benjamin.parsy.runnetic.order.infrastructure.controller.rest.dto.DesiredProductPublicData;
 import com.benjamin.parsy.runnetic.order.infrastructure.controller.rest.dto.RequestOrderApiDto;
 import com.benjamin.parsy.runnetic.order.infrastructure.controller.rest.dto.ResponseOrderApiDto;
+import com.benjamin.parsy.runnetic.order.infrastructure.publicdata.DesiredProductPublicData;
 import com.benjamin.parsy.runnetic.order.usecase.CreateOrderUseCase;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
